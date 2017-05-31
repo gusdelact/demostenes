@@ -1,0 +1,83 @@
+Ext.define('gfi.bin.admctasweb.model.operativos.CnbvDictamen', {
+	extend: 'Ext.data.Model',
+	
+	fields: [
+	         {name	: 'numOficio',			 type	: 'string'},
+	         {name	: 'tipoOficio',			 type	: 'string'},
+	         {name	: 'numConsec',	         type	: 'long'},
+	         
+	         {name	: 'aplicaCtasMonedaExt', type	: 'string'},	         
+	         {name	: 'aplicaCtasMonedaNal', type	: 'string'},
+	         {name	: 'bloqueoAperturaCta',	 type	: 'string'},
+	         {name	: 'cajasSeguridad',		 type	: 'string'},
+	         {name	: 'caracterContrato',	 type	: 'string'},
+	         {name	: 'comentarios',		 type	: 'string'},
+	         {name	: 'copiaCertificada',	 type	: 'string'},
+	         {name	: 'copiaSimple',		 type	: 'string'},
+	         {name	: 'creditos',			 type	: 'string'},
+	         {name	: 'cuentaCheques',		 type	: 'string'},
+	         {name	: 'cveUsuAlta',			 type	: 'string'},
+	         {name	: 'cveUsuMod',		     type	: 'string'},
+	         {name	: 'docIdentifCuenta',	 type	: 'string'},
+	         {name	: 'embargoParcial',	 	 type	: 'string'},
+	         {name	: 'embargoParcialCta',	 type	: 'string'},
+	         {name	: 'embargoParcialMonto', type	: 'double'},
+	         {name	: 'embargoParcialPorc',	 type	: 'double'},
+	         {name	: 'embargoTotal',	     type	: 'string'},
+	         {name	: 'embargoTotalCta',	 type	: 'string'},
+	         {name	: 'especificar',	 	 type	: 'string'},
+	         {name	: 'especificar2',	 	 type	: 'string'},
+	         {name	: 'especificar3',		 type	: 'string'},
+	         {name	: 'estadosCuenta',		 type	: 'string'},
+	         {name	: 'fhAlta',	 			 type	: 'string'},
+	         {name	: 'fhUltMod',			 type	: 'date'},
+	         {name	: 'fideicomisos',		 type	: 'string'},
+	         {name	: 'idPersona',			 type	: 'long'},
+	         {name	: 'impresoPorContraloria',  type	: 'string'},
+	         {name	: 'infoGralCuenta',	 	 type	: 'string'},
+	         {name	: 'intermediacionBursatil', type	: 'string'},
+	         {name	: 'inversiones',		 type	: 'string'},
+	         {name	: 'levantamtoParcialEmb',   type	: 'string'},
+	         {name	: 'levantamtoTotalEmb',	 type	: 'string'},
+	         {name	: 'monedaEmbargoParcial',   type	: 'long'},
+	         {name	: 'monedaLevParcialEmb', type	: 'long'},
+	         {name	: 'montoEmbargoParcial', type	: 'double'},
+	         {name	: 'montoLevParcialEmb',	 type	: 'double'},
+	         {name	: 'operacionDivisas',	 type	: 'string'},
+	         {name	: 'operacionesInusuales',   type	: 'string'},
+	         {name	: 'operacionesRelevantes',	type	: 'string'},
+	         {name	: 'otros',	 			 type	: 'string'},
+	         {name	: 'otros2',	 			 type	: 'string'},
+	         {name	: 'otros3',	 			 type	: 'string'},
+	         {name	: 'reportesOperPld',	 type	: 'string'},
+	         {name	: 'tarjetaRegFirma',	 type	: 'string'},
+	         {name	: 'tipoFideicomisos',	 type	: 'string'},
+	         {name	: 'transfMonedaExt',	 type	: 'string'},
+	         {name	: 'transfMonedaNal',	 type	: 'string'},
+	         //para la cabezera
+	         
+	         {name	: 'idEmpresa',	     type	: 'long'},
+	         {name	: 'descEmpresa',	 type	: 'string'},	         
+	         {name	: 'nombre',			 type	: 'string'},
+	         {name	: 'nombre',	 		 type	: 'string'},
+	         {name	: 'numFolio',		 type	: 'string'},
+	         {name	: 'numExped',	 	 type	: 'string'},
+	         {name	: 'numRegistro', 	 type	: 'string'},
+	         {name	: 'fhOficio',		 type	: 'date'},
+	         {name	: 'fhRecepcion', 	 type	: 'date'},
+	         {name	: 'numDiasPzo',	 	 type	: 'long'},
+	         {name	: 'nombreTitular', 	 type	: 'string'},
+	         {name	: 'respFaltantes', 	 type	: 'integer'},
+	         {name	: 'descMonedaEmbargoParcial', 	 type	: 'string'},
+	         {name	: 'descMonedaLevParcialEmb', 	 type	: 'string'}
+	         
+	         
+	         
+	         
+	],
+	validations: [
+	     		 {type: 'presence', field: 'numOficio', message: 'El número del oficio es un campo requerido'},
+	     		 {type: 'presence', field: 'tipoOficio', message: 'El tipo del oficio es un campo requerido'},
+	     		 {type: 'presence', field: 'numConsec', message: 'El número consecutivo es un campo requerido'}
+	      	]		
+});

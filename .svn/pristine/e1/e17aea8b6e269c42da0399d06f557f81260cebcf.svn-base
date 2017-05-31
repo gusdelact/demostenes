@@ -1,0 +1,20 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<weblogic-web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                  xsi:schemaLocation="http://www.bea.com/ns/weblogic/weblogic-web-app http://www.bea.com/ns/weblogic/weblogic-web-app/1.0/weblogic-web-app.xsd"
+                  xmlns="http://www.bea.com/ns/weblogic/weblogic-web-app">
+   	<context-root>AdmCtasWeb</context-root>
+   	<description>Apicacion simple ExtJs</description>
+   	<session-descriptor>
+   		<timeout-secs>1200</timeout-secs>
+   	</session-descriptor>
+ 	<container-descriptor>
+ 		<prefer-web-inf-classes>true</prefer-web-inf-classes>
+ 		<show-archived-real-path-enabled>true</show-archived-real-path-enabled>
+    </container-descriptor>
+    <!--  SEGURIDAD OIM -->
+<!--     <security-role-assignment> -->
+<!--     	<role-name>valid-users</role-name> -->
+<!--     	<principal-name>users</principal-name> -->
+<!--   	</security-role-assignment> -->
+<!--  SEGURIDAD OIM -->
+</weblogic-web-app>

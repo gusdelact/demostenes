@@ -1,0 +1,19 @@
+CREATE OR REPLACE TRIGGER TGR_DEL_CNBV_RESPUESTA
+   AFTER DELETE
+   ON cnbv_respuesta
+   FOR EACH ROW
+DECLARE
+-------------------------------------------------------------------------------------
+-- Objetivo : Quita el Tipo de Caso del Oficio al Eliminar Respuestas.
+-- Realizó  : LUGL4884.
+-- Fecha    : 05/06/2014.
+-- Empresa  : Grupo Financiero Interacciones.
+-- Version  : 1.0.
+-------------------------------------------------------------------------------------	
+BEGIN
+   UPDATE cnbv_oficio
+      SET tipo_caso = NULL
+    WHERE num_oficio = :OLD.num_oficio 
+	AND tipo_oficio = :OLD.tipo_oficio;
+END;
+/

@@ -1,0 +1,371 @@
+CREATE OR REPLACE PACKAGE BODY ADMIPROD.PKG_ADMCTAWEB
+AS
+
+/******************************************************************************
+   NAME:      CNBV_RESPALDAR_BIT_SEGUIMIENTO
+   PURPOSE:   procedimientos almacenados referentes a la Bit�cora 
+              de Seguimiento de estatus de oficios
+              
+   REVISIONS:
+   Ver        Date        Author           Description
+   ---------  ----------  ---------------  ------------------------------------
+   1.0        12/05/2014                    1. Creaci�n de paquete.
+******************************************************************************/
+    PROCEDURE	CNBV_RESPALDAR_BIT_SEGUIMIENTO(pResultado OUT NUMBER)
+    IS
+    /*
+      Funcion     :   CNBV_RESPALDAR_BIT_SEGUIMIENTO
+      Objetivo    :   Respaldo de Oficios y sus diferentes estatus a 
+      Realizo     :   Pudenciano Espinobarros Peralta
+      Fecha       :   Mayo 2014
+      Empresa     :   Grupo Financiero Interacciones.
+      Version     :   1.0
+    */
+    
+    CURSOR REGISTROS_RESPALDAR (fecha_respaldo DATE) 
+    IS
+        SELECT NUM_OFICIO, TIPO_OFICIO, CLAVE_ESTATUS, FH_REGISTRO, CLAVE_USUARIO 
+        FROM CNBV_BIT_SEGUIMIENTO
+        WHERE FH_REGISTRO <= fecha_respaldo;
+  
+    FECHA_ACTUAL date := trunc(sysdate) - 1;
+    NUMERO_DIAS number := 0;
+    
+    BEGIN
+      SELECT TX_PARAMETRO into NUMERO_DIAS
+        FROM CNBV_PARAMETRO 
+        WHERE CVE_GPO_PARAM='CNBV_HISTO' 
+        AND CVE_PARAMETRO='NUM_DIAS';
+      
+      DBMS_OUTPUT.PUT_LINE('Inicia respaldo registros CNBV_BIT_SEGUIMIENTO a CNBV_HBIT_SEGUIMIENTO; Fecha actual a tomar es: '||FECHA_ACTUAL);
+      DBMS_OUTPUT.PUT_LINE('Numero dias recuperado de consulta a CNBV_PARAMETRO: '||NUMERO_DIAS);
+      DBMS_OUTPUT.PUT_LINE('Respaldo registros anteriores a fecha: '||(FECHA_ACTUAL-NUMERO_DIAS));
+      
+      FOR REGISTRO_SEGUIMIENTO IN REGISTROS_RESPALDAR((FECHA_ACTUAL-NUMERO_DIAS))
+      LOOP
+          INSERT INTO CNBV_HBIT_SEGUIMIENTO(NUM_OFICIO, TIPO_OFICIO, CLAVE_ESTATUS, FH_REGISTRO, CLAVE_USUARIO)
+            VALUES(REGISTRO_SEGUIMIENTO.NUM_OFICIO, 
+                   REGISTRO_SEGUIMIENTO.TIPO_OFICIO, 
+                   REGISTRO_SEGUIMIENTO.CLAVE_ESTATUS, 
+                   REGISTRO_SEGUIMIENTO.FH_REGISTRO, 
+                   REGISTRO_SEGUIMIENTO.CLAVE_USUARIO);
+      END LOOP;
+      
+      --Eliminar registros respaldados de CNBV_BIT_SEGUIMIENTO
+      DELETE FROM CNBV_BIT_SEGUIMIENTO
+        WHERE FH_REGISTRO <= (FECHA_ACTUAL - NUMERO_DIAS);
+        
+	  COMMIT;
+    pResultado := 0;
+    
+    EXCEPTION
+        WHEN OTHERS THEN
+        BEGIN                
+            ROLLBACK;
+            pResultado := SQLCODE;
+            RAISE_APPLICATION_ERROR(-20000, 'Error al realizar respaldo de tabla CNBV_BIT_SEGUIMIENTO a CNBV_HBIT_SEGUIMIENTO: '||SQLERRM);
+        END;
+    END CNBV_RESPALDAR_BIT_SEGUIMIENTO;
+    
+/**************************************************
+          PROCEDURE: Lanzador de proceso de CNBV_RESPALDAR_BIT_SEGUIMIENTO para ser ejecutado por un job
+***************************************************/
+PROCEDURE	lauchRespBitacoraSeguimiento
+    IS
+    vlResult number;
+BEGIN
+    CNBV_RESPALDAR_BIT_SEGUIMIENTO(vlResult);
+    dbms_output.put_line('vlResult '||vlResult);
+END lauchRespBitacoraSeguimiento;
+  
+	
+-------------------------------------------------------------------------------------
+-- Objetivo : Valida y marca el Dictamen Jur�dico como Impreso por Contraloria.
+-- Realiz�  : LUGL4884.
+-- Fecha    : 23/06/2014.
+-- Empresa  : Grupo Financiero Interacciones.
+-- Version  : 1.0.
+-------------------------------------------------------------------------------------  
+	PROCEDURE SP_CNBV_DICTAMEN (peNumOficio   IN VARCHAR2,
+                                           peTipoOficio  IN VARCHAR2,
+                                           peNumConsec   IN NUMBER,
+                                           peUsuario     IN VARCHAR2,
+                                           psCodResp     OUT NUMBER) IS	  
+	  -- Cursores
+	  CURSOR CurRespuesta IS
+      SELECT NUM_OFICIO, TIPO_OFICIO, NUM_CONSEC
+      FROM CNBV_RESPUESTA 
+      WHERE NUM_OFICIO = peNumOficio
+      AND TIPO_OFICIO = peTipoOficio 
+      AND TIPO_CASO = tipoCasoPositivo;
+      
+      CURSOR CurDictamen(pNumConsec CNBV_RESPUESTA.NUM_CONSEC%TYPE) IS
+      SELECT * FROM CNBV_DICTAMEN
+      WHERE NUM_OFICIO = peNumOficio
+      AND TIPO_OFICIO = peTipoOficio
+      AND NUM_CONSEC = pNumConsec;
+      
+      -- Variables          
+      vlDictPend        NUMBER := 0;
+      vlDictRow         CNBV_DICTAMEN%ROWTYPE;
+      vlIimpresoCont    VARCHAR2(1) := impresoContF;
+        
+    BEGIN
+        psCodResp := 0;
+        
+        FOR RecRespuesta IN CurRespuesta LOOP
+            vlDictRow := NULL;
+        
+            -- Recorremos a Todas las personas del Oficio.
+            OPEN CurDictamen (RecRespuesta.NUM_CONSEC);
+            FETCH CurDictamen INTO vlDictRow;
+            CLOSE CurDictamen;
+            
+            IF vlDictRow.NUM_CONSEC IS NULL THEN
+                vlDictPend := vlDictPend + 1;
+            END IF;
+            
+        END LOOP;
+        
+        --Si NO quedan Dictamenes Pendientes, Marcamos Impreso por Contraloria.
+        IF vlDictPend = 0 THEN
+        
+           SELECT NVL(IMPRESO_POR_CONTRALORIA,'F') INTO vlIimpresoCont 
+           FROM CNBV_DICTAMEN 
+           WHERE NUM_OFICIO = peNumOficio
+           AND TIPO_OFICIO = peTipoOficio 
+           AND NUM_CONSEC = peNumConsec;
+           
+           IF vlIimpresoCont = impresoContF THEN
+               UPDATE CNBV_DICTAMEN
+               SET IMPRESO_POR_CONTRALORIA = impresoContV,
+                   CVE_USU_IMPRESION = peUsuario,
+                   FH_IMPRESION = SYSDATE
+               WHERE NUM_OFICIO = peNumOficio
+               AND TIPO_OFICIO = peTipoOficio 
+               AND NUM_CONSEC = peNumConsec;
+           
+               COMMIT;
+
+               psCodResp := 1;
+            ELSE 
+               psCodResp := 2;
+            END IF;        
+        END IF;
+        DBMS_OUTPUT.PUT_LINE('CODIGO DE RESPUESTA: ' || psCodResp);
+        
+        EXCEPTION
+        WHEN OTHERS THEN
+            psCodResp := 99;
+        
+    END SP_CNBV_DICTAMEN;    
+    
+    -------------------------------------------------------------------------------------
+    -- Objetivo : Valida el registro del dictamen Juridico regresa una bandera para saber que todos los dictamenes con eltipo caso PO han sido 
+    -- registrados
+    -- 0 es igual  que todos los oficios fueron registrados
+    -- 1 o N es el numero de registros que faltan por registrar
+    -- Realiz�  : MANUEL REYES.
+    -- Fecha    : 26/06/2014.
+    -- Empresa  : Grupo Financiero Interacciones.
+    -- Version  : 1.0.
+    -------------------------------------------------------------------------------------    
+    PROCEDURE SP_CNBV_REG_DIC_JUR (peNumOficio   IN VARCHAR2,                                        
+                                           psCodResp  OUT NUMBER) IS
+    -- Variables          
+    vlDictPend     NUMBER := 0;
+    countResp NUMBER :=0;
+    countDictamen NUMBER :=0;
+                                           
+    BEGIN
+    -- Asiganacion de variables 
+      SELECT count(*)
+      INTO countResp
+      FROM CNBV_RESPUESTA 
+      WHERE NUM_OFICIO = peNumOficio
+      AND TIPO_CASO = tipoCasoPositivo;
+      
+     
+      SELECT count(*) 
+      INTO countDictamen
+      FROM CNBV_DICTAMEN
+      WHERE NUM_OFICIO = peNumOficio;
+    DBMS_OUTPUT.PUT_LINE('countResp ' || countResp);
+    DBMS_OUTPUT.PUT_LINE('countDictamen ' || countDictamen);
+        
+        psCodResp := countResp - countDictamen;
+        
+        IF psCodResp = 0 THEN
+            DBMS_OUTPUT.PUT_LINE('Numero de respuestas igual al dictamen: ' || psCodResp);
+            ELSE
+            DBMS_OUTPUT.PUT_LINE('Faltan'|| psCodResp ||' respuestas por registrar');
+        END IF;       
+        
+        EXCEPTION
+        WHEN OTHERS THEN
+            psCodResp := 99;
+           
+    END SP_CNBV_REG_DIC_JUR; 
+    
+    -------------------------------------------------------------------------------------
+    -- Objetivo : Marca el Tipo de Caso del Oficio CNBV dependiento de la Busqueda de Personas.
+    -- Realiz�  : LUGL4884.
+    -- Fecha    : 05/06/2014.
+    -- Empresa  : Grupo Financiero Interacciones.
+    -- Version  : 1.0.
+    -------------------------------------------------------------------------------------    
+    PROCEDURE SP_CNBV_RESPUESTA (peNumOficio   IN VARCHAR2,
+                                           peTipoOficio  IN VARCHAR2,
+                                           psCodResp     OUT NUMBER) IS
+      -- Cursores
+      CURSOR CurPersona IS
+      SELECT CP.NUM_OFICIO, CP.TIPO_OFICIO, CP.NUM_CONSEC
+      FROM CNBV_PERSONA CP 
+      WHERE CP.NUM_OFICIO = peNumOficio
+      AND CP.TIPO_OFICIO = peTipoOficio;
+      
+      CURSOR CurRespuesta(pNumConsec CNBV_PERSONA.NUM_CONSEC%TYPE) IS
+      SELECT * FROM CNBV_RESPUESTA
+      WHERE NUM_OFICIO = peNumOficio
+      AND TIPO_OFICIO = peTipoOficio
+      AND NUM_CONSEC = pNumConsec;
+      
+      -- Variables          
+      vlPerPend 	NUMBER := 0;
+      vlTipoCaso	VARCHAR2(2) := tipoCasoNegativo;
+      vlSitOficio	VARCHAR2(2) := sitTerminado;
+      vlRespRow		CNBV_RESPUESTA%ROWTYPE;
+        
+    BEGIN
+        psCodResp := 0;
+        
+        FOR RecPersona IN CurPersona LOOP
+            vlRespRow := NULL;
+        
+            -- Recorremos a Todas las personas del Oficio.
+            OPEN CurRespuesta (RecPersona.NUM_CONSEC);
+            FETCH CurRespuesta INTO vlRespRow;
+            CLOSE CurRespuesta;
+            
+            IF vlRespRow.NUM_CONSEC IS NULL THEN
+                vlPerPend := vlPerPend + 1;
+            ELSE 
+                -- Tipo de Caso Positivo
+                IF vlRespRow.TIPO_CASO = tipoCasoPositivo THEN
+                   vlTipoCaso := tipoCasoPositivo;
+                END IF;
+            
+            END IF;
+            
+        END LOOP;
+        
+        --Si NO quedan Personas Pendientes Actualizamos TIPO_CASO.
+        IF vlPerPend = 0 THEN
+           
+           UPDATE CNBV_OFICIO 
+           SET TIPO_CASO = vlTipoCaso,
+               SIT_OFICIO = vlSitOficio
+           WHERE NUM_OFICIO = peNumOficio
+           AND TIPO_OFICIO = peTipoOficio;
+           
+           COMMIT;
+           
+           IF vlTipoCaso = tipoCasoPositivo THEN 
+              -- Se marco el Oficio POSITIVO.
+              psCodResp := 1;
+           ELSE
+              -- Se marco el Oficio NEGATIVO.
+              psCodResp := 2; 
+           END IF;
+           
+        END IF;
+        DBMS_OUTPUT.PUT_LINE('CODIGO DE RESPUESTA: ' || psCodResp);
+        
+        EXCEPTION
+        WHEN OTHERS THEN
+            psCodResp := 99;
+        
+    END SP_CNBV_RESPUESTA;
+    
+    
+    PROCEDURE STP_FOLIOARCHIVO (PEGPOPARAM   IN  CNBV_PARAMETRO.CVE_GPO_PARAM%TYPE,
+                            PECVEPARAM   IN  CNBV_PARAMETRO.CVE_PARAMETRO%TYPE,
+                            PECVEUSU     IN  CNBV_PARAMETRO.CVE_USU_ALTA%TYPE,
+                            PSRESULTADO  OUT CNBV_PARAMETRO.TX_PARAMETRO%TYPE) IS
+      RECFOLIO     CNBV_PARAMETRO.TX_PARAMETRO%TYPE;
+      VLBANDERA    CNBV_PARAMETRO.TX_PARAMETRO%TYPE;
+      CURSOR CurBANDERA IS
+        SELECT TX_PARAMETRO
+        FROM CNBV_PARAMETRO
+        WHERE CVE_GPO_PARAM='BANDERA'
+        AND   CVE_PARAMETRO='FOLIO';
+      CURSOR CurFolio IS
+        SELECT TX_PARAMETRO
+        FROM CNBV_PARAMETRO
+        WHERE CVE_GPO_PARAM=PEGPOPARAM
+        AND   CVE_PARAMETRO=PECVEPARAM
+        FOR UPDATE OF TX_PARAMETRO ;
+      CURSOR CurFolio2 IS
+        SELECT TX_PARAMETRO
+        FROM CNBV_PARAMETRO
+        WHERE CVE_GPO_PARAM=PEGPOPARAM
+        FOR UPDATE OF CVE_PARAMETRO, TX_PARAMETRO;
+    BEGIN
+      OPEN CurBANDERA;
+      FETCH CurBANDERA INTO VLBANDERA;
+      IF CurBANDERA%NOTFOUND THEN
+         VLBANDERA:='F';
+      END IF;
+      CLOSE curBANDERA;
+      IF VLBANDERA = 'V' THEN
+         --BUSCA EL PARAMETRO CON GRUPO
+         OPEN CurFolio;
+         FETCH CurFolio INTO RECFOLIO;
+         IF CurFolio%NOTFOUND THEN
+         --SINO LO CUENTRA BUSCA QUE EXISTA EL GRUPO
+            OPEN CurFolio2;
+            FETCH CurFolio2 INTO RECFOLIO;
+            IF CurFolio2%NOTFOUND THEN
+               INSERT INTO CNBV_PARAMETRO
+               VALUES(PEGPOPARAM,PECVEPARAM,'1','AC',SYSDATE,PECVEUSU,NULL,NULL);
+               RECFOLIO:='1';
+            ELSE
+               --SI LO ENCUENTRA CAMBIA LA FECHA Y LO INICIA EN 1
+               UPDATE CNBV_PARAMETRO
+               SET    CVE_PARAMETRO= PECVEPARAM,
+                      TX_PARAMETRO = '1',
+                      FH_ULT_MOD   = SYSDATE,
+                     CVE_USU_MOD  = PECVEUSU
+               WHERE  CVE_GPO_PARAM= PEGPOPARAM;
+              RECFOLIO:='1';
+            END IF;
+            CLOSE CurFolio2;
+         ELSE
+         --SI LO ENCUENTRA LO INCREMENTA EN 1
+            RECFOLIO:=TO_CHAR(TO_NUMBER(RECFOLIO)+1);
+            UPDATE CNBV_PARAMETRO
+            SET    TX_PARAMETRO=RECFOLIO,
+                   FH_ULT_MOD   = SYSDATE,
+                   CVE_USU_MOD  = PECVEUSU
+            WHERE  CVE_GPO_PARAM=PEGPOPARAM
+            AND    CVE_PARAMETRO=PECVEPARAM;
+         END IF;
+         CLOSE CurFolio;
+         --DEVUELVE EL FOLIO
+         PSRESULTADO:=RECFOLIO;
+         dbms_output.put_line('FOLIO '||RECFOLIO);
+         COMMIT;
+      ELSE
+         PSRESULTADO:=0;
+         dbms_output.put_line('FOLIO BANDERA APAGADA'||PSRESULTADO);
+      END IF;
+      EXCEPTION
+      WHEN OTHERS THEN
+      BEGIN
+        ROLLBACK;
+        PSRESULTADO:=-1;
+      END;
+    END;
+END PKG_ADMCTAWEB; 
+/
+

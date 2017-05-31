@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="AdmCtasWeb" basedir="." default="usage">
+    <property file="build.properties"/>
+
+    <property name="web.dir" value="target"/>
+	<property name="version" value="0.0.1-SNAPSHOT"/>
+    <property name="name" value="extjs-Template-01"/>
+	<property name="deploy.name" value="${name}"/>
+
+    <target name="usage">
+        <echo message=""/>
+        <echo message="${deploy.name} build file"/>
+        <echo message="-----------------------------------"/>
+        <echo message=""/>
+        <echo message="Available targets are:"/>
+        <echo message=""/>
+        <echo message="deploy    --> Deploy application as directory"/>
+    	<echo message="deployjsp    --> Deploy application as directory"/>
+        <echo message="deploywar --> Deploy application as a WAR file"/>
+    	<echo message="undeploy  --> Uninstall application in Tomcat"/>
+        <echo message=""/>
+    </target>
+
+    <target name="deploy" description="Deploy application">
+        <copy todir="${deploy.path}/${deploy.name}" preservelastmodified="true">
+            <fileset dir="${web.dir}/${deploy.name}">
+                <include name="**/*.*"/>
+            </fileset>
+        </copy>
+    </target>
+	
+	<target name="deployjsp" description="Deploy application">
+        <copy todir="${deploy.path}/${deploy.name}/WEB-INF/jsp" preservelastmodified="true">
+            <fileset dir="${web.dir}/../src/main/webapp/WEB-INF/jsp">
+                <include name="**/*.*"/>
+            </fileset>
+        </copy>
+		<copy todir="${deploy.path}/${deploy.name}/resources" preservelastmodified="true">
+            <fileset dir="${web.dir}/../src/main/webapp/resources">
+                <include name="**/*.*"/>
+            </fileset>
+        </copy>
+		<copy todir="${deploy.path}/${deploy.name}/js" preservelastmodified="true">
+            <fileset dir="${web.dir}/../src/main/webapp/js">
+                <include name="**/*.*"/>
+            </fileset>
+        </copy>
+    </target>
+
+    <target name="deploywar" description="Deploy application as a WAR file">
+    	<copy todir="${deploy.path}" preservelastmodified="true">
+            <fileset dir="${web.dir}">
+                <include name="${deploy.name}.war"/>
+            </fileset>
+        </copy>
+    </target>
+	
+	<target name="undeploy" description="Un-Deploy application">
+        <delete>
+            <fileset dir="${deploy.path}/${deploy.name}">
+                <include name="**/*.*"/>
+            </fileset>
+        	<fileset dir="${deploy.path}">
+                <include name="${deploy.name}.war"/>
+            </fileset>
+        </delete>
+    </target>
+</project>

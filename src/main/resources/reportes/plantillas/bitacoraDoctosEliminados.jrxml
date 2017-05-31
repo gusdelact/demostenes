@@ -1,0 +1,208 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="BitacoraDoctosEliminados" pageWidth="612" pageHeight="792" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="7c096ae9-01cc-42b8-b9d8-eb24d737ee61">
+	<property name="ireport.zoom" value="1.9965000000000006"/>
+	<property name="ireport.x" value="362"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="paramUsuarioSesion" class="java.lang.String">
+		<parameterDescription><![CDATA[]]></parameterDescription>
+		<defaultValueExpression><![CDATA["FMUNIVE"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="paramLogoPath" class="java.lang.String">
+		<defaultValueExpression><![CDATA[""]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[]]>
+	</queryString>
+	<field name="numOficio" class="java.lang.String"/>
+	<field name="tipoOficio" class="java.lang.String"/>
+	<field name="descTipoOficio" class="java.lang.String"/>
+	<field name="cveDocto" class="java.lang.String"/>
+	<field name="descCveDocto" class="java.lang.String"/>
+	<field name="nomDocto" class="java.lang.String"/>
+	<field name="fhElimTime" class="java.sql.Timestamp">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="cveUsuElim" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band splitType="Stretch"/>
+	</title>
+	<pageHeader>
+		<band height="52" splitType="Stretch">
+			<rectangle>
+				<reportElement x="0" y="0" width="572" height="51" uuid="679e2606-b912-4399-bd87-1a20f4fc25c0"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="0" y="22" width="572" height="14" uuid="6cb0df0c-110b-4a11-a501-66f6fe57785e"/>
+				<textElement textAlignment="Center">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Administración de Cuentas]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="36" width="572" height="15" uuid="36616083-0100-4756-adcf-212a4c07955b"/>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[Bitácora de Documentos Eliminados]]></text>
+			</staticText>
+			<textField pattern="dd/MM/yyyy h.mm a">
+				<reportElement x="487" y="7" width="26" height="10" uuid="9e6c0655-37f6-4815-adec-cbfcb782973d"/>
+				<textElement>
+					<font size="5"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Fecha   : "]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy hh:mm:ss a">
+				<reportElement x="513" y="7" width="56" height="10" uuid="5bec6f8f-cd1d-4fda-ab6c-cfde3dcb5184"/>
+				<textElement>
+					<font size="5"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<image>
+				<reportElement x="3" y="3" width="122" height="23" uuid="92d70ece-12b3-4ddc-83d1-0377b526f048"/>
+				<imageExpression><![CDATA[$P{paramLogoPath}]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement x="0" y="5" width="572" height="16" uuid="94f718d8-7823-4e6a-906d-9128bd8415da"/>
+				<textElement textAlignment="Center">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[GRUPO FINANCIERO INTERACCIONES]]></text>
+			</staticText>
+			<textField pattern="dd/MM/yyyy h.mm a">
+				<reportElement x="487" y="17" width="26" height="9" uuid="6e6fe035-9436-4f9c-b8cb-cc76181c659c"/>
+				<textElement>
+					<font size="5"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Usuario :  "]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="513" y="17" width="41" height="9" uuid="6ae55a28-6b02-4bf8-b58c-30ed9dc6d182"/>
+				<textElement>
+					<font size="5"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{paramUsuarioSesion}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="17" splitType="Stretch">
+			<rectangle>
+				<reportElement x="0" y="0" width="572" height="16" backcolor="#CCCCCC" uuid="968ed836-12e4-4733-b295-95d032e2adcd"/>
+				<graphicElement>
+					<pen lineColor="#CCCCCC"/>
+				</graphicElement>
+			</rectangle>
+			<staticText>
+				<reportElement x="3" y="2" width="107" height="14" uuid="c476cd3c-fac7-4fed-96ac-a89a1ab28379"/>
+				<textElement>
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[No. Oficio]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="110" y="2" width="90" height="14" uuid="e9580dd8-584d-4bc2-8448-e6accfa67914"/>
+				<textElement>
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Tipo de Oficio]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="200" y="2" width="100" height="14" uuid="441070c8-fe40-4763-8aa8-eed94f504bef"/>
+				<textElement>
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Tipo de Docto.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="300" y="2" width="100" height="14" uuid="944f8f0c-60c2-418c-99cb-8238ffa41aa2"/>
+				<textElement>
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Documento]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="461" y="2" width="109" height="14" uuid="f78f848d-a96b-43f7-b7ca-ff2df3694ac0"/>
+				<textElement textAlignment="Left">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Usuario y Fecha eliminación]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="12" splitType="Stretch">
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="300" y="1" width="161" height="10" uuid="a726ebed-2ab7-4af1-bac6-4b9ba7910adf"/>
+				<textElement>
+					<font size="6"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{nomDocto}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="dd/MM/yyyy hh:mm:ss a" isBlankWhenNull="true">
+				<reportElement x="496" y="1" width="76" height="10" uuid="4fb17f57-653a-4168-9c0e-1e92fc8f8232"/>
+				<textElement>
+					<font size="6"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{fhElimTime}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="0" y="1" width="110" height="10" uuid="a873e93f-96d0-4305-8839-eb321372ce26"/>
+				<textElement>
+					<font size="6"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{numOficio}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="461" y="1" width="35" height="10" uuid="72035a11-58e8-4d22-b96c-1b2adf2f24e6"/>
+				<textElement>
+					<font size="6"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{cveUsuElim}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="110" y="1" width="90" height="10" uuid="425b3d62-78b8-47f1-9f66-c0deaca34b1f"/>
+				<textElement>
+					<font size="6"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{descTipoOficio}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="202" y="1" width="100" height="10" uuid="2726a267-6102-4cfc-9d96-5da6f84e57cc"/>
+				<textElement>
+					<font size="6"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{descCveDocto}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="16" splitType="Stretch">
+			<textField>
+				<reportElement x="480" y="6" width="80" height="9" uuid="4f7e11a8-114b-4d72-8277-c3c6d82ef41b"/>
+				<textElement textAlignment="Right">
+					<font size="5"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Página:  "+$V{PAGE_NUMBER}+"  de "]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement x="560" y="6" width="12" height="9" uuid="8df92f18-3492-4dfe-842a-1c6502e4c463"/>
+				<textElement>
+					<font size="5"/>
+				</textElement>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="513" y="2" width="59" height="1" uuid="0863b887-0095-4bef-9d84-d01ef2c1c7e1"/>
+			</line>
+		</band>
+	</pageFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>

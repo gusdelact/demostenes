@@ -1,0 +1,53 @@
+<?xml version="1.0"?>
+<!DOCTYPE cache-config SYSTEM "cache-config.dtd">
+<!-- FIX: NO INCLUIR -->
+<cache-config>
+  <caching-scheme-mapping>
+    <cache-mapping>
+      <cache-name>*</cache-name>
+      <scheme-name>extend-near</scheme-name>
+    </cache-mapping>
+  </caching-scheme-mapping>
+
+  <caching-schemes>
+  	
+  	<near-scheme>
+      <scheme-name>extend-near</scheme-name>
+      <front-scheme>
+        <local-scheme>
+          <high-units>1000</high-units>
+          <low-units>750</low-units>
+        </local-scheme>
+      </front-scheme>
+      <back-scheme>
+        <remote-cache-scheme>
+          <scheme-ref>remote-scheme</scheme-ref>
+        </remote-cache-scheme>
+      </back-scheme>
+      <invalidation-strategy>present</invalidation-strategy>
+    </near-scheme>
+  	
+  
+    <!--
+    Remote cache scheme that connects to the cluster over TCP/IP.
+    -->
+    <remote-cache-scheme>
+      <scheme-name>remote-scheme</scheme-name>
+      <service-name>ExtendTcpCacheService</service-name>
+      <initiator-config>
+        <tcp-initiator>
+          <remote-addresses>
+            <socket-address>
+			  <address>${com.gfi.seguridad.spring.coherenceIP}</address>
+              <port>${com.gfi.seguridad.spring.coherencePort}</port> 
+            </socket-address>
+          </remote-addresses>
+          <connect-timeout>2s</connect-timeout>
+        </tcp-initiator>
+        <outgoing-message-handler>
+          <request-timeout>10s</request-timeout>
+        </outgoing-message-handler>
+      </initiator-config>
+    </remote-cache-scheme>
+  </caching-schemes>
+</cache-config>

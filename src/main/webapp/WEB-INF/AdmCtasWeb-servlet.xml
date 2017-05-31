@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:context="http://www.springframework.org/schema/context"
+    xmlns:jaxws="http://cxf.apache.org/jaxws"
+    xmlns:mvc="http://www.springframework.org/schema/mvc"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
+              http://www.springframework.org/schema/context  http://www.springframework.org/schema/context/spring-context-3.2.xsd
+              http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd
+              http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-3.2.xsd">
+              
+<!-- Busca @Controller, @Service y @Component en es paquete seleccionado -->
+	<context:component-scan base-package="com.gfi.corp.controller" />
+	<context:component-scan base-package="com.gfi.corp.component" />
+	
+<!-- Busca @Controller en los paquetes propios de Administración de Cuentas Web -->	
+	<context:component-scan use-default-filters="false" base-package="com.gfi.bin.admctasweb.catalogos.controller,
+	                                                                  com.gfi.bin.admctasweb.operativos.controller,
+	                                                                  com.gfi.bin.admctasweb.reportes.controller,
+	                                                                  com.gfi.bin.admctasweb.reporte_r29.controller,
+	                                                                  com.gfi.bin.admctasweb.procesoautomatico.controller">
+	 	<context:include-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
+	</context:component-scan>
+	
+<!-- Excaneamos este paquete porq ahi se encuentra el nuevo EXCEPTION'S HANDLER que nos ayuda a transformar las exceptions en un objeto JSON -->
+	<context:component-scan base-package="com.gfi.corp.utils" />
+	    
+	<mvc:annotation-driven content-negotiation-manager="contentNegotiationManager"/>
+	
+	<!--  Este objectMapper modifica el comportamiento por default, haciendo que se ignoren las propiedades inexistentes en la conversion entre jackson y java -->
+	<bean id="jacksonObjectMapper" class="com.gfi.corp.utils.JacksonJsonMapperFactoryBean" />
+	
+	<mvc:annotation-driven content-negotiation-manager="contentNegotiationManager" >
+		<mvc:message-converters>	<!--  Para sobreescribir los messages converters por default -->
+		
+			<!--  Sobrescribimos el message converter de Jackson para pasarle un ObjectMapper 'customizado' -->
+			<bean class="org.springframework.http.converter.json.MappingJacksonHttpMessageConverter">
+				<property name="objectMapper" ref="jacksonObjectMapper"/>	
+			</bean>
+		</mvc:message-converters>
+	</mvc:annotation-driven>
+	
+	<bean id="contentNegotiationManager" class="org.springframework.web.accept.ContentNegotiationManagerFactoryBean">
+		<!-- 	    Turn off working out content type based on URL file extension, should fall back to looking at the Accept headers -->
+	    <property name="favorPathExtension" value="false" />
+	</bean>
+    
+    <mvc:view-controller path="/Simple_LoginForm.htm" 	 view-name="seguridad/Simple_LoginForm"/>
+    <mvc:view-controller path="/Advanced_LoginForm.htm"  view-name="seguridad/Advanced_LoginForm"/>
+    <mvc:view-controller path="/SessionClosed.htm" 		 view-name="seguridad/SessionClosed"/>
+    <mvc:view-controller path="/LoginFailed.htm" 		 view-name="seguridad/LoginFailed"/>
+    <mvc:view-controller path="/OnlyToken_LoginForm.htm" view-name="seguridad/OnlyToken_LoginForm"/>
+    <mvc:view-controller path="/AccessDenied.htm" 		 view-name="seguridad/AccessDenied"/>
+    <mvc:view-controller path="/defaultSecondFilter.htm" view-name="seguridad/defaultSecondFilter"/>
+    <mvc:view-controller path="/home.htm" 				 view-name="index"/>
+    <mvc:view-controller path="/test.htm" 				 view-name="test"/>
+    
+    <mvc:resources mapping="/js/**" location="/ , /js/ , classpath:/META-INF/js/"/>
+    <mvc:resources mapping="/resources/**" location="/resources/ , classpath:/META-INF/resources/"/>
+    <mvc:resources mapping="/extjs-core/**" location="/extjs-core/ , classpath:/META-INF/extjs-core/"/>
+    
+    <bean class="org.springframework.web.servlet.view.ContentNegotiatingViewResolver">
+      <property name="defaultContentType" value="application/json" />
+	  <property name="mediaTypes">
+	    <map>
+	      <entry key="html" value="text/html"/>
+	      <entry key="json" value="application/json"/>
+	    </map>
+	  </property>
+	  <property name="viewResolvers">
+	    <list>
+	      <bean class="org.springframework.web.servlet.view.BeanNameViewResolver"/>
+	      <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+	        <property name="prefix" value="/WEB-INF/jsp/"/>
+	        <property name="suffix" value=".jsp"/>
+	      </bean>
+	    </list>
+	  </property>
+	  <property name="defaultViews">
+	    <list>
+	      <bean class="org.springframework.web.servlet.view.json.MappingJacksonJsonView" >
+	      	<property name="objectMapper" ref="jacksonObjectMapper"/>
+	      </bean>
+	    </list>
+	  </property>
+	</bean>
+	
+	<!-- Configuramos el multipart resolver -->
+	<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+	    <!-- <property name="maxUploadSize" value="100000"/> -->
+	</bean>
+	
+</beans>

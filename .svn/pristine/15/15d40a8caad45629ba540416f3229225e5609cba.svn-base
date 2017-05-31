@@ -1,0 +1,13 @@
+#Archivo de configuración para conexión SFTP
+#sftp.host = 172.20.25.158
+#sftp.username = tortoise
+#sftp.password = tortoise
+#sftp.port = 22
+#sftp.strictHostKeyChecking = no
+
+#Archivo de configuración para conexión SFTP
+sftp.host = 172.20.21.116
+sftp.username = CNBVUser
+sftp.password = Pa$$w0rdC
+sftp.port = 22
+sftp.strictHostKeyChecking = no

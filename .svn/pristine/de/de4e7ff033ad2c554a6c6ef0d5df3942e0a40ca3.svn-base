@@ -1,0 +1,86 @@
+CREATE OR REPLACE PACKAGE ADMIPROD.PKG_ADMCTAWEB AS
+
+  --Constantes.
+  tipoCasoPositivo  CONSTANT VARCHAR2(2) := 'PO';
+  tipoCasoNegativo  CONSTANT VARCHAR2(2) := 'NE';
+  impresoContV      CONSTANT VARCHAR2(1) := 'V';
+  impresoContF      CONSTANT VARCHAR2(1) := 'F';
+  tipoRespuestaTot    CONSTANT NUMBER := 1;
+  tipoRespuestaPar    CONSTANT NUMBER := 2;
+  sitTerminado      CONSTANT VARCHAR2(2) := 'TE';
+  sitTermAbierto    CONSTANT VARCHAR2(2) := 'TA';
+
+--  -- Variables          
+--  vlDictPend        NUMBER := 0;
+--  vlDictRow         CNBV_DICTAMEN%ROWTYPE;
+--  vlIimpresoCont    VARCHAR2(1) := impresoContF;
+--  countResp NUMBER :=0;
+--  countDictamen NUMBER :=0;
+--  vlPerPend     NUMBER := 0;
+--  vlTipoCaso    VARCHAR2(2) := tipoCasoNegativo;
+--  vlSitOficio    VARCHAR2(2) := sitTerminado;
+--  vlRespRow        CNBV_RESPUESTA%ROWTYPE;
+
+  /******************************************************************************
+   NAME:      CNBV_RESPALDAR_BIT_SEGUIMIENTO
+   PURPOSE:   procedimientos almacenados referentes a la Bitácora 
+              de Seguimiento de estatus de oficios
+              
+   REVISIONS:
+   Ver        Date        Author           Description
+   ---------  ----------  ---------------  ------------------------------------
+   1.0        12/05/2014                    1. Creación de paquete.
+   ******************************************************************************/
+  PROCEDURE    CNBV_RESPALDAR_BIT_SEGUIMIENTO(pResultado OUT NUMBER);
+  
+  
+/**************************************************
+          PROCEDURE: Lanzador de proceso de CNBV_RESPALDAR_BIT_SEGUIMIENTO para ser ejecutado por un job
+***************************************************/
+PROCEDURE    lauchRespBitacoraSeguimiento;
+  
+  
+-------------------------------------------------------------------------------------
+-- Objetivo : Valida y marca el Dictamen Jurídico como Impreso por Contraloria.
+-- Realizó  : LUGL4884.
+-- Fecha    : 23/06/2014.
+-- Empresa  : Grupo Financiero Interacciones.
+-- Version  : 1.0.
+-------------------------------------------------------------------------------------  
+  PROCEDURE SP_CNBV_DICTAMEN (peNumOficio   IN VARCHAR2,
+                                           peTipoOficio  IN VARCHAR2,
+                                           peNumConsec   IN NUMBER,
+                                           peUsuario     IN VARCHAR2,
+                                           psCodResp     OUT NUMBER);
+
+-------------------------------------------------------------------------------------
+-- Objetivo : Valida el registro del dictamen Juridico regresa una bandera para saber que todos los dictamenes con eltipo caso PO han sido 
+-- registrados
+-- 0 es igual  que todos los oficios fueron registrados
+-- 1 o N es el numero de registros que faltan por registrar
+-- Realizó  : MANUEL REYES.
+-- Fecha    : 26/06/2014.
+-- Empresa  : Grupo Financiero Interacciones.
+-- Version  : 1.0.
+-------------------------------------------------------------------------------------                                              
+  PROCEDURE SP_CNBV_REG_DIC_JUR (peNumOficio   IN VARCHAR2,                                        
+                                           psCodResp  OUT NUMBER);                                           
+
+-------------------------------------------------------------------------------------
+-- Objetivo : Marca el Tipo de Caso del Oficio CNBV dependiento de la Busqueda de Personas.
+-- Realizó  : LUGL4884.
+-- Fecha    : 05/06/2014.
+-- Empresa  : Grupo Financiero Interacciones.
+-- Version  : 1.0.
+-------------------------------------------------------------------------------------
+  PROCEDURE SP_CNBV_RESPUESTA (peNumOficio   IN VARCHAR2,
+                                           peTipoOficio  IN VARCHAR2,
+                                           psCodResp     OUT NUMBER);
+                                           
+  PROCEDURE STP_FOLIOARCHIVO (PEGPOPARAM   IN  CNBV_PARAMETRO.CVE_GPO_PARAM%TYPE,
+                            PECVEPARAM   IN  CNBV_PARAMETRO.CVE_PARAMETRO%TYPE,
+                            PECVEUSU     IN  CNBV_PARAMETRO.CVE_USU_ALTA%TYPE,
+                            PSRESULTADO  OUT CNBV_PARAMETRO.TX_PARAMETRO%TYPE);
+END PKG_ADMCTAWEB; 
+/
+

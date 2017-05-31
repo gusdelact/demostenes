@@ -1,0 +1,28 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta content="text/html; charset=UTF-8" http-equiv="Content-Type"/>
+<style>
+body {color:red;}
+h1 {color:#00ff00;}
+p.ex {color:rgb(0,0,255);}
+</style>
+<title>Confirmación  "Spring Framework"</title>
+</head>
+<body>
+	<div id="header">
+		<img src="cid:id002" />
+	</div>
+	<div id="content">
+		<p class="nameClass">Hola ${datosEmail.nombre},</p>
+		<p>Te confirmamos la celebración de la charla sobre "${courseName}" del $date.format("dd/MM/yyyy", $courseDate).</p>
+		<p>Un saludo.</p>
+		<p>GFI.</p>
+	</div>
+	<div id="footer">
+		<p>alguna label de juridico</p>
+	
+		<p>otra label para uso de juridico</p>
+	</div>
+</body>
+</html>

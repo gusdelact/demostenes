@@ -1,0 +1,27 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<meta content="text/html; charset=UTF-8" http-equiv="Content-Type"/>
+	<title>Notificaci&oacute;n Oficio Enviado</title>
+</head>
+<body>
+	<div id="header">
+	</div>
+	<div id="content">
+		<p>Por medio del presente correo, se les notifica que el Oficio que se menciona a continuaci&oacute;n, ha cambiado a estatus Enviado; 
+			por lo que no podr&aacute; realizar m&aacute;s modificaciones a su(s) respuesta(s) y &uacute;nicamente estar&aacute; disponible para Consulta e Impresi&oacute;n.
+		</p>
+		
+		<b>Datos del Oficio:</b> 
+		<br/>
+		Número de Oficio : ${numOficio} 
+		<br/>
+		Tipo de Oficio   : ${tipoOficio}
+	</div>
+	<br/><br/>
+	<div id="footer">
+		<img src="cid:logoGFI" />
+		<P style="font-size:13px;color:#99A2A6">Sistema de Administración de Cuentas Web</P>
+	</div>
+</body>
+</html>

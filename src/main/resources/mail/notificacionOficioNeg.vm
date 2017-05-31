@@ -1,0 +1,25 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<meta content="text/html; charset=UTF-8" http-equiv="Content-Type"/>
+	<title>Notificación Oficio Negativo</title>
+</head>
+<body>
+	<div id="header">
+	</div>
+	<div id="content">
+		Se envia el informe de Oficio con resultado de Busqueda Negativo.
+		<br/><br/>
+		<b>Datos del Oficio:</b> 
+		<br/>
+		Número de Oficio : ${numOficio} 
+		<br/>
+		Tipo de Oficio   : ${tipoOficio}
+	</div>
+	<br/><br/>
+	<div id="footer">
+		<img src="cid:logoGFI" />
+		<P style="font-size:13px;color:#99A2A6">Sistema de Administración de Cuentas Web</P>
+	</div>
+</body>
+</html>

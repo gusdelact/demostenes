@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE web-app PUBLIC '-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN' 'http://java.sun.com/dtd/web-app_2_3.dtd'>
+<web-app>
+ 
+	<display-name>AdmCtasWeb</display-name>
+	<description>Aplicacion basica ExtJs -Java usando la seguridad de Spring Security</description>
+	<context-param>
+    	<param-name>contextConfigLocation</param-name>
+    	<param-value>/WEB-INF/classes/applicationContext*.xml</param-value>
+	</context-param>
+	
+	<context-param>
+		<param-name>appName</param-name>
+		<param-value>AdmCtasWeb</param-value>
+		<description>Nombre que se mostrara en el header de la aplicacion</description>
+	</context-param>
+	
+<!-- Ini: Seguridad GFI -->
+	<filter>
+		<filter-name>springSecurityFilterChain</filter-name>
+		<filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>springSecurityFilterChain</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+	<listener>
+		<listener-class>org.springframework.security.ui.session.HttpSessionEventPublisher</listener-class>
+	</listener>
+<!-- Fin: Seguridad GFI -->
+
+	<listener>
+		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+	</listener>
+	
+	<servlet>
+		<servlet-name>AdmCtasWeb</servlet-name>
+		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+	
+	<!--  Log4j Tracker -->
+	<servlet>
+        <servlet-name>TrackerServlet</servlet-name>
+        <servlet-class>log4jwebtracker.servlet.TrackerServlet</servlet-class>
+    </servlet>
+    
+	<servlet-mapping>
+		<servlet-name>AdmCtasWeb</servlet-name>
+		<url-pattern>/</url-pattern>
+	</servlet-mapping>
+	
+	<!--  Log4j Tracker Mapping-->
+    <servlet-mapping>
+        <servlet-name>TrackerServlet</servlet-name>
+        <url-pattern>/tracker/*</url-pattern>
+    </servlet-mapping>
+	
+	<session-config>
+		<session-timeout>20</session-timeout>
+	</session-config>
+	
+	
+	<!--  SEGURIDAD OIM -->
+<!-- 	<security-constraint> -->
+<!-- 		<web-resource-collection> -->
+<!-- 			<web-resource-name>allResources</web-resource-name> -->
+<!-- 			<url-pattern>/*</url-pattern> -->
+<!-- 		</web-resource-collection> -->
+<!-- 		<auth-constraint> -->
+<!-- 			<role-name>valid-users</role-name> -->
+<!-- 		</auth-constraint> -->
+<!-- 	</security-constraint> -->
+<!-- 	<login-config> -->
+<!-- 		<auth-method>BASIC</auth-method>  BASIC, CLIENT-CERT   -->
+<!-- 	</login-config> -->
+<!-- 	<security-role> -->
+<!-- 		<description>It represents any role attached to the current user</description> -->
+<!-- 		<role-name>valid-users</role-name> -->
+<!-- 	</security-role> -->
+	
+<!-- 	<context-param> -->
+<!-- 		<param-name>oimAppId</param-name> -->
+<!-- 		<param-value>AdmCtasWeb</param-value> -->
+<!-- 		<description>Identificador que tiene la aplicacion en el menu corporativo (OIM)</description> -->
+<!-- 	</context-param> -->
+<!-- Fin: Seguridad OIM  -->	
+	
+	
+	<mime-mapping>
+	 	<extension>js</extension>
+     	<mime-type>text/javascript</mime-type>
+	</mime-mapping>
+	
+	<welcome-file-list>
+	    <welcome-file>index.jsp</welcome-file>
+	</welcome-file-list>
+</web-app>

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+	
+   	<!-- PKG_REP_R29.STP_GENERA_INTENTO -->
+	<bean id="generaIntento" class="org.springframework.jdbc.core.simple.SimpleJdbcCall">
+		<constructor-arg ref="corpDS"  />
+		<property name="catalogName" value="PKG_REP_R29"/>
+		<property name="procedureName" value="STP_GENERA_INTENTO"/>
+	</bean>
+        
+        <!-- PKG_REP_R29.STP_VALIDA_INFO -->		
+	<bean id="validaInformacion" class="org.springframework.jdbc.core.simple.SimpleJdbcCall">
+		<constructor-arg ref="corpDS"  />
+		<property name="catalogName" value="PKG_REP_R29"/>
+		<property name="procedureName" value="STP_VALIDA_INFO"/>
+	</bean>
+        
+        <!-- PKG_REP_R29.STP_INTEGRA_INFO -->		
+	<bean id="integraInformacion" class="org.springframework.jdbc.core.simple.SimpleJdbcCall">
+		<constructor-arg ref="corpDS"  />
+		<property name="catalogName" value="PKG_REP_R29"/>
+		<property name="procedureName" value="STP_INTEGRA_INFO"/>
+	</bean>
+        
+        <!-- PKG_REP_R29.STP_CIERRA_PERIODO -->		
+	<bean id="cierraPeriodo" class="org.springframework.jdbc.core.simple.SimpleJdbcCall">
+		<constructor-arg ref="corpDS"  />
+		<property name="catalogName" value="PKG_REP_R29"/>
+		<property name="procedureName" value="STP_CIERRA_PERIODO"/>
+	</bean>
+        
+        
+   
+</beans>

@@ -1,0 +1,9 @@
+sencha compile
+  --classpath=target/extCompilation/extjs-core/src/,target/extCompilation/js/ 
+page 
+ -name fullApp 
+ -cla build/fullApp.js
+ -in target/extCompilation/index.jsp
+ -out target/extCompilation/index.jsp
+ and save fullApp 
+ and save fullApp and concat -yui target/${artifactId}/build/fullApp.js

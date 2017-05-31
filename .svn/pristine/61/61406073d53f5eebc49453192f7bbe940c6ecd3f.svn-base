@@ -1,0 +1,32 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta content="text/html; charset=UTF-8" http-equiv="Content-Type"/>
+<style>
+</style>
+<title>Registro de dictamen Juridico</title>
+</head>
+<body>
+	<div id="header">
+		<img src="cid:logoGFI" />
+	</div>
+	<div id="content">
+		<p class="nameClass">Estimado usuario,</p>
+		<p>
+		Por medio del presente se le notifica que ${operacion}:
+		<br/>Número de Oficio   : ${numeroDeOficio}
+		<br/>Número de Folio    : ${numeroDeFolio}<br/>
+		Tipo de Oficio     : ${descTipoOficio}<br/>
+		Número Consecutivo : ${numConsecutivo}<br/>
+		
+		</p>
+		
+		<p>Buen Día.</p>
+		<p>GFI.</p>
+	</div>
+	<div id="footer">
+		<p>Email enviado el ${sysDate}.</p>
+		
+	</div>
+</body>
+</html>

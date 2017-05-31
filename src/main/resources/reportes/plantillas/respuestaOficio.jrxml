@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="respuestaOficio" pageWidth="612" pageHeight="792" columnWidth="492" leftMargin="60" rightMargin="60" topMargin="100" bottomMargin="40" uuid="7682b077-0e0c-47d4-b83c-44511a3a5fdd">
+	<property name="ireport.zoom" value="1.3310000000000028"/>
+	<property name="ireport.x" value="1"/>
+	<property name="ireport.y" value="187"/>
+	<parameter name="descripcion" class="java.lang.String"/>
+	<parameter name="direccion" class="java.lang.String"/>
+	<parameter name="gerencia" class="java.lang.String"/>
+	<parameter name="nombre" class="java.lang.String"/>
+	<parameter name="puesto" class="java.lang.String"/>
+	<parameter name="vicepresidencia" class="java.lang.String"/>
+	<parameter name="usuario" class="java.lang.String"/>
+	<parameter name="fecha" class="java.lang.String"/>
+	<parameter name="apoderado" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="179" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="24" width="492" height="12" uuid="c1b45f4a-71a1-4c81-bb32-7721dd79f3c1"/>
+				<textElement>
+					<font fontName="Tahoma" size="9" isBold="true" isItalic="false"/>
+				</textElement>
+				<text><![CDATA[COMISIÓN NACIONAL BANCARIA Y DE VALORES]]></text>
+			</staticText>
+			<staticText>
+				<reportElement positionType="Float" x="0" y="72" width="392" height="44" uuid="de354d9f-1764-495a-ba36-c657ae838fea"/>
+				<textElement>
+					<font fontName="Tahoma" size="9" isItalic="true"/>
+				</textElement>
+				<text><![CDATA[Av. Insurgentes Sur No. 1971, Plaza Inn
+Nivel Fuente, Local 163
+Col. Guadalupe Inn, Delegación Álvaro Obregón
+C.P. 01020 México, D.F.
+]]></text>
+			</staticText>
+			<staticText>
+				<reportElement positionType="Float" x="0" y="127" width="31" height="12" uuid="5b48b017-e123-4d7d-81da-2d82a4666aab"/>
+				<textElement>
+					<font fontName="Tahoma" size="9" isBold="true" isItalic="true"/>
+				</textElement>
+				<text><![CDATA[At’n. :
+]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement positionType="Float" x="0" y="48" width="492" height="12" isRemoveLineWhenBlank="true" uuid="04a5aaab-7ba9-4862-a292-b3bb5f80af46"/>
+				<textElement>
+					<font fontName="Tahoma" size="9" isBold="true" isItalic="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{direccion}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement positionType="Float" x="0" y="60" width="492" height="12" isRemoveLineWhenBlank="true" uuid="e3bb971d-6751-4abd-b811-df82a8959b1c"/>
+				<textElement>
+					<font fontName="Tahoma" size="9" isBold="true" isItalic="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{gerencia}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement positionType="Float" x="32" y="127" width="460" height="12" uuid="93c2078c-db12-42bb-a072-f78456ac0051"/>
+				<textElement>
+					<font fontName="Tahoma" size="9" isBold="true" isItalic="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{nombre}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement positionType="Float" x="32" y="139" width="460" height="12" uuid="7710596d-40a3-4bfb-a926-02f479f5435f"/>
+				<textElement>
+					<font fontName="Tahoma" size="9" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{puesto}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement positionType="Float" x="0" y="36" width="492" height="12" isRemoveLineWhenBlank="true" uuid="b2ceffb2-c283-41a1-91d2-517fabc900e8"/>
+				<textElement>
+					<font fontName="Tahoma" size="9" isBold="true" isItalic="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{vicepresidencia}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="272" y="0" width="220" height="12" uuid="fa2f8686-2df9-4b5a-b141-d277a1561cff"/>
+				<textElement textAlignment="Right">
+					<font fontName="Tahoma" size="9" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{fecha}]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band splitType="Stretch"/>
+	</columnHeader>
+	<detail>
+		<band height="86" splitType="Stretch">
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="0" y="0" width="492" height="58" uuid="0fbc4b22-7186-41d2-a070-48f22e3ca4b0"/>
+				<textElement textAlignment="Justified" markup="html">
+					<font fontName="Tahoma" size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{descripcion}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="104" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="100" height="20" uuid="e6ead463-19b1-481f-b17f-03a8b37d5c6c"/>
+				<textElement>
+					<font fontName="Tahoma" size="9"/>
+				</textElement>
+				<text><![CDATA[A t e n t a m e n t e
+
+
+
+
+C.P. José González Huerta
+Apoderado
+IRC
+]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="0" y="91" width="290" height="12" uuid="cb94e6f9-ee73-4055-9728-d3873181f486"/>
+				<textElement>
+					<font fontName="Tahoma" size="9" isItalic="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{usuario}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement positionType="Float" x="0" y="79" width="290" height="12" uuid="be13761e-cb73-4e47-b100-4264bbe5a9a8"/>
+				<textElement>
+					<font fontName="Tahoma" size="9" isBold="true" isItalic="true"/>
+				</textElement>
+				<text><![CDATA[Apoderado]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="0" y="67" width="290" height="12" uuid="9a0f46a6-72c2-4f2c-9ba6-57138a859fe4"/>
+				<textElement>
+					<font fontName="Tahoma" size="9" isBold="true" isItalic="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{apoderado}]]></textFieldExpression>
+			</textField>
+		</band>
+	</summary>
+</jasperReport>

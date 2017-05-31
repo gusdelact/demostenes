@@ -1,0 +1,18 @@
+CREATE TABLE CNBV_PORCENT_SIMIL
+(
+  PORCENT_SIMIL  NUMBER(3)                      NOT NULL,
+  FH_ALTA        DATE,
+  CVE_USU_ALTA   VARCHAR2(8 BYTE),
+  FH_ULT_MOD     DATE,
+  CVE_USU_MOD    VARCHAR2(8 BYTE)
+);
+
+COMMENT ON COLUMN CNBV_PORCENT_SIMIL.PORCENT_SIMIL IS 'Establece porcentaje  de coincidencia o similaridad con las que se desea realizar las búsquedas de personas';
+COMMENT ON COLUMN CNBV_PORCENT_SIMIL.FH_ALTA IS 'Fecha de creación del registro';
+COMMENT ON COLUMN CNBV_PORCENT_SIMIL.CVE_USU_ALTA IS 'Clave del Usuario que da de alta el registro';
+COMMENT ON COLUMN CNBV_PORCENT_SIMIL.FH_ULT_MOD IS 'Fecha de última modificación de registro';
+COMMENT ON COLUMN CNBV_PORCENT_SIMIL.CVE_USU_MOD IS 'Clave del usuario que realizó última modificación';
+
+ALTER TABLE CNBV_PORCENT_SIMIL ADD (
+  CONSTRAINT CNBV_PORCENT_SIMIL_CHK1
+ CHECK (PORCENT_SIMIL > 0 AND PORCENT_SIMIL <= 100));

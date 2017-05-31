@@ -1,0 +1,461 @@
+
+-- BUS_GRUPO 
+
+Insert into bus_grupo(cve_grupo, nom_grupo) VALUES ('admctasweb', 'Buscadores para Administración de Cuentas Web'); 
+
+
+-- BUS_CATALOGO 
+
+Insert into BUS_CATALOGO
+   (CVE_GRUPO, CVE_BUSCADOR, NOM_BUSCADOR, TIPO_PAGINADO, LIMITE_REGISTROS, ALIAS_BASE_DATOS, ANCHO, ALTO, B_PRODUCTIVO, CVE_USUARIO, FH_CREACION)
+ Values
+   ('admctasweb', 'respuestas', 'Catálogo de Respuestas CNBV', 'paging', 50, 'CORP', 0, 0, 'F', 'LUGL4884', TO_DATE('05/27/2014 14:23:02', 'MM/DD/YYYY HH24:MI:SS'));
+Insert into BUS_CATALOGO
+   (CVE_GRUPO, CVE_BUSCADOR, NOM_BUSCADOR, TIPO_PAGINADO, LIMITE_REGISTROS, ALIAS_BASE_DATOS, ANCHO, ALTO, B_PRODUCTIVO, CVE_USUARIO, FH_CREACION)
+ Values
+   ('admctasweb', 'dictamenJur', 'Registro de dictamen juridico CNBV', 'paging', 50, 'CORP', 0, 0, 'F', 'LUGL4884', TO_DATE('05/29/2014 13:17:31', 'MM/DD/YYYY HH24:MI:SS'));
+Insert into BUS_CATALOGO
+   (CVE_GRUPO, CVE_BUSCADOR, NOM_BUSCADOR, TIPO_PAGINADO, LIMITE_REGISTROS, ALIAS_BASE_DATOS, SQL_WHERE, ANCHO, ALTO, B_PRODUCTIVO, CVE_USUARIO, FH_CREACION)
+ Values
+   ('admctasweb', 'destinatarios', 'Catálogo de Destinatarios CNBV', 'paging', 50, 'CORP', 'dest.CVE_ESTATUS = est.CVE_ESTATUS', 0, 0, 'F', 'LUGL4884', TO_DATE('05/07/2014 11:21:59', 'MM/DD/YYYY HH24:MI:SS'));
+Insert into BUS_CATALOGO
+   (CVE_GRUPO, CVE_BUSCADOR, NOM_BUSCADOR, TIPO_PAGINADO, LIMITE_REGISTROS, ALIAS_BASE_DATOS, ANCHO, ALTO, B_PRODUCTIVO, CVE_USUARIO, FH_CREACION)
+ Values
+   ('admctasweb', 'personas', 'Catálogo de Personas CNBV', 'paging', 50, 'CORP', 0, 0, 'F', 'LUGL4884', TO_DATE('05/07/2014 13:54:33', 'MM/DD/YYYY HH24:MI:SS'));
+Insert into BUS_CATALOGO
+   (CVE_GRUPO, CVE_BUSCADOR, NOM_BUSCADOR, TIPO_PAGINADO, LIMITE_REGISTROS, ALIAS_BASE_DATOS, ANCHO, ALTO, B_PRODUCTIVO, CVE_USUARIO, FH_CREACION)
+ Values
+   ('admctasweb', 'estatusSeguimiento', 'Catálogo de Estatus de seguimiento CNBV', 'paging', 50, 'CORP', 0, 0, 'F', 'LUGL4884', TO_DATE('05/07/2014 17:55:34', 'MM/DD/YYYY HH24:MI:SS'));
+Insert into BUS_CATALOGO
+   (CVE_GRUPO, CVE_BUSCADOR, NOM_BUSCADOR, TIPO_PAGINADO, LIMITE_REGISTROS, ALIAS_BASE_DATOS, ANCHO, ALTO, B_PRODUCTIVO, CVE_USUARIO, FH_CREACION)
+ Values
+   ('admctasweb', 'dirSolicitantes', 'Catálogo de Direcciones Solicitantes CNBV', 'paging', 25, 'CORP', 0, 0, 'F', 'MUDF4038', TO_DATE('05/07/2014 18:16:53', 'MM/DD/YYYY HH24:MI:SS'));
+Insert into BUS_CATALOGO
+   (CVE_GRUPO, CVE_BUSCADOR, NOM_BUSCADOR, TIPO_PAGINADO, LIMITE_REGISTROS, ALIAS_BASE_DATOS, ANCHO, ALTO, B_PRODUCTIVO, CVE_USUARIO, FH_CREACION)
+ Values
+   ('admctasweb', 'parametros', 'Catálogo de Parámetros CNBV', 'paging', 25, 'CORP', 0, 0, 'F', 'MUDF4038', TO_DATE('05/13/2014 09:49:07', 'MM/DD/YYYY HH24:MI:SS'));
+Insert into BUS_CATALOGO
+   (CVE_GRUPO, CVE_BUSCADOR, NOM_BUSCADOR, TIPO_PAGINADO, LIMITE_REGISTROS, ALIAS_BASE_DATOS, ANCHO, ALTO, B_PRODUCTIVO, CVE_USUARIO, FH_CREACION)
+ Values
+   ('admctasweb', 'autoridades', 'Catálogo de Autoridades CNBV', 'paging', 25, 'CORP', 0, 0, 'F', 'LUGL4884', TO_DATE('05/06/2014 16:25:33', 'MM/DD/YYYY HH24:MI:SS'));
+Insert into BUS_CATALOGO
+   (CVE_GRUPO, CVE_BUSCADOR, NOM_BUSCADOR, TIPO_PAGINADO, LIMITE_REGISTROS, ALIAS_BASE_DATOS, SQL_WHERE, ANCHO, ALTO, B_PRODUCTIVO, CVE_USUARIO, FH_CREACION)
+ Values
+   ('admctasweb', 'oficios', 'Catálogo de Oficios CNBV', 'paging', 50, 'CORP', 'ofi.ID_EMPRESA  = emp.ID_EMPRESA ', 0, 0, 'F', 'LUGL4884', TO_DATE('05/06/2014 18:53:56', 'MM/DD/YYYY HH24:MI:SS'));
+Insert into BUS_CATALOGO
+   (CVE_GRUPO, CVE_BUSCADOR, NOM_BUSCADOR, TIPO_PAGINADO, LIMITE_REGISTROS, ALIAS_BASE_DATOS, ANCHO, ALTO, B_PRODUCTIVO, CVE_USUARIO, FH_CREACION)
+ Values
+   ('admctasweb', 'documentos', 'Catálogo de Documentos CNBV', 'paging', 25, 'CORP', 0, 0, 'F', 'LUGL4884', TO_DATE('05/22/2014 18:37:54', 'MM/DD/YYYY HH24:MI:SS'));
+Insert into BUS_CATALOGO
+   (CVE_GRUPO, CVE_BUSCADOR, NOM_BUSCADOR, TIPO_PAGINADO, LIMITE_REGISTROS, ALIAS_BASE_DATOS, SQL_WHERE, ANCHO, ALTO, B_PRODUCTIVO, CVE_USUARIO, FH_CREACION)
+ Values
+   ('admctasweb', 'respuestaOficio', 'Registro de Respuesta de Oficio', 'paging', 50, 'CORP', 'Respoficio.Tipo_Req = Tipreq.Id_Tip_Req
+And   Respoficio.Tipo_Oficio = Tipreq.Tipo_Oficio
+And   Respoficio.Tipo_Sol = Tipsol.Id_Tip_Sol(+)
+And   Respoficio.Tipo_Oficio = Tipsol.Tipo_Oficio(+)
+And   Respoficio.Tipo_Req = Tipsol.Id_Tip_Req(+)', 0, 0, 'F', 'LUGL4884', TO_DATE('06/04/2014 18:56:16', 'MM/DD/YYYY HH24:MI:SS'));
+Insert into BUS_CATALOGO
+   (CVE_GRUPO, CVE_BUSCADOR, NOM_BUSCADOR, TIPO_PAGINADO, LIMITE_REGISTROS, ALIAS_BASE_DATOS, ANCHO, ALTO, B_PRODUCTIVO, CVE_USUARIO, FH_CREACION)
+ Values
+   ('admctasweb', 'excepcion', 'Catálogo de Excepciones', 'paging', 25, 'CORP', 0, 0, 'F', 'MUDF4038', TO_DATE('06/10/2014 09:57:31', 'MM/DD/YYYY HH24:MI:SS'));
+Insert into BUS_CATALOGO
+   (CVE_GRUPO, CVE_BUSCADOR, NOM_BUSCADOR, TIPO_PAGINADO, LIMITE_REGISTROS, ALIAS_BASE_DATOS, ANCHO, ALTO, B_PRODUCTIVO, CVE_USUARIO, FH_CREACION)
+ Values
+   ('admctasweb', 'similaridad', 'Catálogo de Similaridad', 'paging', 50, 'CORP', 0, 0, 'F', 'LUGL4884', TO_DATE('06/02/2014 18:52:01', 'MM/DD/YYYY HH24:MI:SS'));
+Insert into BUS_CATALOGO
+   (CVE_GRUPO, CVE_BUSCADOR, NOM_BUSCADOR, TIPO_PAGINADO, LIMITE_REGISTROS, ALIAS_BASE_DATOS, ANCHO, ALTO, B_PRODUCTIVO, CVE_USUARIO, FH_CREACION)
+ Values
+   ('admctasweb', 'estatusSeg', 'Estatus de Seguimineto de Oficios CNBV', 'paging', 25, 'CORP', 0, 0, 'F', 'LUGL4884', TO_DATE('06/02/2014 19:04:38', 'MM/DD/YYYY HH24:MI:SS'));
+Insert into BUS_CATALOGO
+   (CVE_GRUPO, CVE_BUSCADOR, NOM_BUSCADOR, TIPO_PAGINADO, LIMITE_REGISTROS, ALIAS_BASE_DATOS, ANCHO, ALTO, B_PRODUCTIVO, CVE_USUARIO, FH_CREACION)
+ Values
+   ('admctasweb', 'bitacoraDocsElimados', 'Bitácora de Documentos Eliminados CNBV', 'paging', 100, 'CORP', 0, 0, 'F', 'MUDF4038', TO_DATE('05/20/2014 13:28:05', 'MM/DD/YYYY HH24:MI:SS'));
+
+
+-- BUS_TABLA 
+
+Insert into BUS_TABLA
+   (CVE_GRUPO, CVE_BUSCADOR, CVE_TABLA, NOM_TABLA, SQL_FROM)
+ Values
+   ('admctasweb', 'destinatarios', 'dest', 'Catálogo de Destinatarios CNBV', 'CNBV_DESTINATARIOS');
+Insert into BUS_TABLA
+   (CVE_GRUPO, CVE_BUSCADOR, CVE_TABLA, NOM_TABLA, SQL_FROM)
+ Values
+   ('admctasweb', 'personas', 'per', 'Catálogo de Personas CNBV', 'CNBV_PERSONA');
+Insert into BUS_TABLA
+   (CVE_GRUPO, CVE_BUSCADOR, CVE_TABLA, NOM_TABLA, SQL_FROM)
+ Values
+   ('admctasweb', 'estatusSeguimiento', 'estseg', 'Catálogo de Estatus de seguimiento CNBV', 'CNBV_ESTATUS_SEG');
+Insert into BUS_TABLA
+   (CVE_GRUPO, CVE_BUSCADOR, CVE_TABLA, NOM_TABLA, SQL_FROM)
+ Values
+   ('admctasweb', 'dirSolicitantes', 'dirSol', 'Catálogo de Direcciones Solicitantes CNBV', 'CNBV_DIRECCIONES');
+Insert into BUS_TABLA
+   (CVE_GRUPO, CVE_BUSCADOR, CVE_TABLA, NOM_TABLA, SQL_FROM)
+ Values
+   ('admctasweb', 'parametros', 'param', 'Catálogo de Parámetros CNBV', 'CNBV_PARAMETRO');
+Insert into BUS_TABLA
+   (CVE_GRUPO, CVE_BUSCADOR, CVE_TABLA, NOM_TABLA, SQL_FROM)
+ Values
+   ('admctasweb', 'respuestas', 'res', 'CatÃ¡logo de Respuestas CNBV', 'CNBV_RESPUESTA');
+Insert into BUS_TABLA
+   (CVE_GRUPO, CVE_BUSCADOR, CVE_TABLA, NOM_TABLA, SQL_FROM)
+ Values
+   ('admctasweb', 'dictamenJur', 'dcj', 'Registro de dictamen juridico CNBV', 'CNBV_DICTAMEN');
+Insert into BUS_TABLA
+   (CVE_GRUPO, CVE_BUSCADOR, CVE_TABLA, NOM_TABLA, SQL_FROM)
+ Values
+   ('admctasweb', 'excepcion', 'excep', 'Catálogo de Excepciones', 'EXCEPCION');
+Insert into BUS_TABLA
+   (CVE_GRUPO, CVE_BUSCADOR, CVE_TABLA, NOM_TABLA, SQL_FROM)
+ Values
+   ('admctasweb', 'autoridades', 'aut', 'Catálogo de Autoridades CNBV', 'CNBV_AUTORIDAD');
+Insert into BUS_TABLA
+   (CVE_GRUPO, CVE_BUSCADOR, CVE_TABLA, NOM_TABLA, SQL_FROM)
+ Values
+   ('admctasweb', 'oficios', 'ofi', 'Catálogo de Oficios CNBV', 'CNBV_OFICIO');
+Insert into BUS_TABLA
+   (CVE_GRUPO, CVE_BUSCADOR, CVE_TABLA, NOM_TABLA, SQL_FROM)
+ Values
+   ('admctasweb', 'documentos', 'doc', 'Catálogo de Documentos CNBV', 'CNBV_DOCUMENTO');
+Insert into BUS_TABLA
+   (CVE_GRUPO, CVE_BUSCADOR, CVE_TABLA, NOM_TABLA, SQL_FROM)
+ Values
+   ('admctasweb', 'respuestaOficio', 'respOficio', 'Registro de Respuesta de Oficio', 'CNBV_RESP_OFICIO');
+Insert into BUS_TABLA
+   (CVE_GRUPO, CVE_BUSCADOR, CVE_TABLA, NOM_TABLA, SQL_FROM)
+ Values
+   ('admctasweb', 'oficios', 'emp', 'Catálogo de Empresas CNBV', 'EXP_EMPRESA');
+Insert into BUS_TABLA
+   (CVE_GRUPO, CVE_BUSCADOR, CVE_TABLA, NOM_TABLA, SQL_FROM)
+ Values
+   ('admctasweb', 'destinatarios', 'est', 'Catálogo de estatus de seguimiento', 'CNBV_ESTATUS_SEG');
+Insert into BUS_TABLA
+   (CVE_GRUPO, CVE_BUSCADOR, CVE_TABLA, NOM_TABLA, SQL_FROM)
+ Values
+   ('admctasweb', 'bitacoraDocsElimados', 'bitDocsElim', 'Bitácora de Documentos Eliminados CNBV', 'CNBV_BIT_DOCTO');
+Insert into BUS_TABLA
+   (CVE_GRUPO, CVE_BUSCADOR, CVE_TABLA, NOM_TABLA, SQL_FROM)
+ Values
+   ('admctasweb', 'similaridad', 'simil', 'Catálogo de Similaridad', 'CNBV_PORCENT_SIMIL');
+Insert into BUS_TABLA
+   (CVE_GRUPO, CVE_BUSCADOR, CVE_TABLA, NOM_TABLA, SQL_FROM)
+ Values
+   ('admctasweb', 'estatusSeg', 'seg', 'Estatus de Seguimineto de Oficios CNBV', 'cnbv_estatus_seg');
+Insert into BUS_TABLA
+   (CVE_GRUPO, CVE_BUSCADOR, CVE_TABLA, NOM_TABLA, SQL_FROM)
+ Values
+   ('admctasweb', 'respuestaOficio', 'tipReq', 'Tipos de requerimiento por oficio', 'CNBV_TIP_REQ');
+Insert into BUS_TABLA
+   (CVE_GRUPO, CVE_BUSCADOR, CVE_TABLA, NOM_TABLA, SQL_FROM)
+ Values
+   ('admctasweb', 'respuestaOficio', 'tipSol', 'Tipos de Solicitud por requerimiento', 'CNBV_TIP_SOL');
+   
+   
+-- BUS_CAMPO 
+
+Insert into BUS_CAMPO
+   (CVE_GRUPO, CVE_BUSCADOR, CVE_CAMPO, NOM_CAMPO, B_FUNCION, CVE_TABLA, TIPO_DATO, TIPO_FILTRO, TIPO_ORDEN, INDICE_CAMPO, INDICE_ORDEN, ANCHO, B_FILTRO, B_GRID, CVE_TRANS_TEXTO, DESC_ETIQUETA, B_REPORTE)
+ Values
+   ('admctasweb', 'parametros', 'cveGpoParam', 'CVE_GPO_PARAM', 'F', 'param', 'string', 'like', 'asc', 1, 1, 1, 'V', 'V', 'upper', 'Cve. Grupo', 'V');
+Insert into BUS_CAMPO
+   (CVE_GRUPO, CVE_BUSCADOR, CVE_CAMPO, NOM_CAMPO, B_FUNCION, CVE_TABLA, TIPO_DATO, TIPO_FILTRO, TIPO_ORDEN, INDICE_CAMPO, INDICE_ORDEN, ANCHO, B_FILTRO, B_GRID, CVE_TRANS_TEXTO, DESC_ETIQUETA, B_REPORTE)
+ Values
+   ('admctasweb', 'parametros', 'cveParam', 'CVE_PARAMETRO', 'F', 'param', 'string', 'like', 'asc', 2, 2, 1, 'V', 'V', 'upper', 'Cve. Parámetro', 'V');
+Insert into BUS_CAMPO
+   (CVE_GRUPO, CVE_BUSCADOR, CVE_CAMPO, NOM_CAMPO, B_FUNCION, CVE_TABLA, TIPO_DATO, TIPO_FILTRO, TIPO_ORDEN, INDICE_CAMPO, INDICE_ORDEN, ANCHO, B_FILTRO, B_GRID, DESC_ETIQUETA, B_REPORTE)
+ Values
+   ('admctasweb', 'parametros', 'descParam', 'TX_PARAMETRO', 'F', 'param', 'string', 'like', 'asc', 3, 3, 3, 'V', 'V', 'Descripción', 'V');
+Insert into BUS_CAMPO
+   (CVE_GRUPO, CVE_BUSCADOR, CVE_CAMPO, NOM_CAMPO, B_FUNCION, CVE_TABLA, TIPO_DATO, TIPO_FILTRO, TIPO_ORDEN, INDICE_CAMPO, INDICE_ORDEN, ANCHO, B_FILTRO, B_GRID, CVE_TRANS_TEXTO, DESC_ETIQUETA, B_REPORTE)
+ Values
+   ('admctasweb', 'parametros', 'sitParam', 'SIT_PARAMETRO', 'F', 'param', 'string', 'like', 'asc', 4, 4, 1, 'V', 'V', 'upper', 'Situación', 'V');
+Insert into BUS_CAMPO
+   (CVE_GRUPO, CVE_BUSCADOR, CVE_CAMPO, NOM_CAMPO, B_FUNCION, CVE_TABLA, TIPO_DATO, TIPO_FILTRO, TIPO_ORDEN, INDICE_CAMPO, INDICE_ORDEN, ANCHO, B_FILTRO, B_GRID, CVE_TRANS_TEXTO, DESC_ETIQUETA, B_REPORTE)
+ Values
+   ('admctasweb', 'documentos', 'numOficio', 'num_oficio', 'F', 'doc', 'string', 'like', 'asc', 1, 1, 2, 'V', 'V', 'upper', 'Número Oficio', 'V');
+Insert into BUS_CAMPO
+   (CVE_GRUPO, CVE_BUSCADOR, CVE_CAMPO, NOM_CAMPO, B_FUNCION, CVE_TABLA, TIPO_DATO, TIPO_FILTRO, TIPO_ORDEN, INDICE_CAMPO, INDICE_ORDEN, ANCHO, B_FILTRO, B_GRID, CVE_TRANS_TEXTO, DESC_ETIQUETA, B_REPORTE)
+ Values
+   ('admctasweb', 'documentos', 'tipoOficio', 'tipo_oficio', 'F', 'doc', 'string', 'like', 'asc', 2, 2, 1, 'V', 'V', 'upper', 'Tipo Oficio', 'V');
+Insert into BUS_CAMPO
+   (CVE_GRUPO, CVE_BUSCADOR, CVE_CAMPO, NOM_CAMPO, B_FUNCION, CVE_TABLA, TIPO_DATO, TIPO_FILTRO, TIPO_ORDEN, INDICE_CAMPO, INDICE_ORDEN, ANCHO, B_FILTRO, B_GRID, CVE_TRANS_TEXTO, DESC_ETIQUETA, B_REPORTE)
+ Values
+   ('admctasweb', 'documentos', 'numDocto', 'num_docto', 'F', 'doc', 'number', 'like', 'asc', 3, 3, 1, 'V', 'V', 'upper', 'Num. Docto.', 'V');
+Insert into BUS_CAMPO
+   (CVE_GRUPO, CVE_BUSCADOR, CVE_CAMPO, NOM_CAMPO, B_FUNCION, CVE_TABLA, TIPO_DATO, TIPO_FILTRO, TIPO_ORDEN, INDICE_CAMPO, INDICE_ORDEN, ANCHO, B_FILTRO, B_GRID, CVE_TRANS_TEXTO, DESC_ETIQUETA, B_REPORTE)
+ Values
+   ('admctasweb', 'documentos', 'cveDocto', 'cve_docto', 'F', 'doc', 'string', 'like', 'asc', 4, 4, 1, 'V', 'V', 'upper', 'Cve. Docto', 'V');
+Insert into BUS_CAMPO
+   (CVE_GRUPO, CVE_BUSCADOR, CVE_CAMPO, NOM_CAMPO, B_FUNCION, CVE_TABLA, TIPO_DATO, TIPO_FILTRO, TIPO_ORDEN, INDICE_CAMPO, INDICE_ORDEN, ANCHO, B_FILTRO, B_GRID, DESC_ETIQUETA, B_REPORTE)
+ Values
+   ('admctasweb', 'documentos', 'nomDocto', 'nom_docto', 'F', 'doc', 'string', 'like', 'asc', 5, 5, 2, 'V', 'V', 'Nombre Docto.', 'V');
+Insert into BUS_CAMPO
+   (CVE_GRUPO, CVE_BUSCADOR, CVE_CAMPO, NOM_CAMPO, B_FUNCION, CVE_TABLA, TIPO_DATO, TIPO_FILTRO, TIPO_ORDEN, INDICE_CAMPO, INDICE_ORDEN, ANCHO, B_FILTRO, B_GRID, CVE_TRANS_TEXTO, DESC_ETIQUETA, B_REPORTE)
+ Values
+   ('admctasweb', 'documentos', 'fhAlta', 'fh_alta', 'F', 'doc', 'date', '=', 'asc', 6, 6, 1, 'V', 'V', 'upper', 'Fh. Alta', 'V');
+Insert into BUS_CAMPO
+   (CVE_GRUPO, CVE_BUSCADOR, CVE_CAMPO, NOM_CAMPO, B_FUNCION, CVE_TABLA, TIPO_DATO, TIPO_FILTRO, TIPO_ORDEN, INDICE_CAMPO, INDICE_ORDEN, ANCHO, B_FILTRO, B_GRID, CVE_TRANS_TEXTO, DESC_ETIQUETA, B_REPORTE)
+ Values
+   ('admctasweb', 'excepcion', 'cveExcepcion', 'CVE_TIP_EXCEP', 'F', 'excep', 'string', 'like', 'asc', 1, 1, 1, 'V', 'V', 'upper', 'Clave', 'V');
+Insert into BUS_CAMPO
+   (CVE_GRUPO, CVE_BUSCADOR, CVE_CAMPO, NOM_CAMPO, B_FUNCION, CVE_TABLA, TIPO_DATO, TIPO_FILTRO, TIPO_ORDEN, INDICE_CAMPO, INDICE_ORDEN, ANCHO, B_FILTRO, B_GRID, CVE_TRANS_TEXTO, DESC_ETIQUETA, B_REPORTE)
+ Values
+   ('admctasweb', 'excepcion', 'descExcepcion', 'DESC_EXCEPCION', 'F', 'excep', 'string', 'like', 'asc', 2, 2, 3, 'V', 'V', 'upper', 'Descripción Excepción', 'V');
+Insert into BUS_CAMPO
+   (CVE_GRUPO, CVE_BUSCADOR, CVE_CAMPO, NOM_CAMPO, B_FUNCION, CVE_TABLA, TIPO_DATO, TIPO_FILTRO, TIPO_ORDEN, INDICE_CAMPO, INDICE_ORDEN, ANCHO, B_FILTRO, B_GRID, CVE_TRANS_TEXTO, DESC_ETIQUETA, B_REPORTE)
+ Values
+   ('admctasweb', 'excepcion', 'bloqueoAuditoria', 'B_BLOQ_AUDIT', 'F', 'excep', 'string', 'like', 'asc', 3, 3, 1, 'V', 'V', 'upper', 'Bloqueo Auditoría', 'V');
+Insert into BUS_CAMPO
+   (CVE_GRUPO, CVE_BUSCADOR, CVE_CAMPO, NOM_CAMPO, B_FUNCION, CVE_TABLA, TIPO_DATO, TIPO_FILTRO, TIPO_ORDEN, INDICE_CAMPO, INDICE_ORDEN, ANCHO, B_FILTRO, B_GRID, CVE_TRANS_TEXTO, DESC_ETIQUETA, B_REPORTE)
+ Values
+   ('admctasweb', 'personas', 'idPersona', 'ID_PERSONA', 'F', 'per', 'string', 'like', 'asc', 9, 9, 1, 'F', 'F', 'upper', 'Id Persona', 'V');
+Insert into BUS_CAMPO
+   (CVE_GRUPO, CVE_BUSCADOR, CVE_CAMPO, NOM_CAMPO, B_FUNCION, CVE_TABLA, TIPO_DATO, TIPO_FILTRO, TIPO_ORDEN, INDICE_CAMPO, INDICE_ORDEN, ANCHO, B_FILTRO, B_GRID, CVE_TRANS_TEXTO, DESC_ETIQUETA, B_REPORTE)
+ Values
+   ('admctasweb', 'personas', 'cuenta', 'CUENTA', 'F', 'per', 'string', 'like', 'asc', 10, 10, 1, 'F', 'F', 'upper', 'Contrato', 'V');
+Insert into BUS_CAMPO
+   (CVE_GRUPO, CVE_BUSCADOR, CVE_CAMPO, NOM_CAMPO, B_FUNCION, CVE_TABLA, TIPO_DATO, TIPO_FILTRO, TIPO_ORDEN, INDICE_CAMPO, INDICE_ORDEN, ANCHO, B_FILTRO, B_GRID, CVE_TRANS_TEXTO, DESC_ETIQUETA, B_REPORTE)
+ Values
+   ('admctasweb', 'oficios', 'fhRecepcion', 'f_recepcion', 'F', 'ofi', 'date', '=', 'asc', 10, 10, 1, 'F', 'F', 'upper', 'Fecha Recepción', 'V');
+Insert into BUS_CAMPO
+   (CVE_GRUPO, CVE_BUSCADOR, CVE_CAMPO, NOM_CAMPO, B_FUNCION, CVE_TABLA, TIPO_DATO, TIPO_FILTRO, TIPO_ORDEN, INDICE_CAMPO, INDICE_ORDEN, ANCHO, B_FILTRO, B_GRID, CVE_TRANS_TEXTO, DESC_ETIQUETA, B_REPORTE)
+ Values
+   ('admctasweb', 'oficios', 'numDiasPzo', 'num_dias_pzo', 'F', 'ofi', 'number', '=', 'asc', 11, 11, 1, 'F', 'F', 'upper', 'Días Plazo', 'V');
+Insert into BUS_CAMPO
+   (CVE_GRUPO, CVE_BUSCADOR, CVE_CAMPO, NOM_CAMPO, B_FUNCION, CVE_TABLA, TIPO_DATO, TIPO_FILTRO, TIPO_ORDEN, INDICE_CAMPO, INDICE_ORDEN, ANCHO, B_FILTRO, B_GRID, CVE_TRANS_TEXTO, B_REPORTE)
+ Values
+   ('admctasweb', 'respuestas', 'numOficio', 'NUM_OFICIO', 'F', 'res', 'string', '=', 'asc', 1, 1, 2, 'V', 'V', 'upper', 'V');
+Insert into BUS_CAMPO
+   (CVE_GRUPO, CVE_BUSCADOR, CVE_CAMPO, NOM_CAMPO, B_FUNCION, CVE_TABLA, TIPO_DATO, TIPO_FILTRO, TIPO_ORDEN, INDICE_CAMPO, INDICE_ORDEN, ANCHO, B_FILTRO, B_GRID, CVE_TRANS_TEXTO, B_REPORTE)
+ Values
+   ('admctasweb', 'respuestas', 'tipoOficio', 'TIPO_OFICIO', 'F', 'res', 'string', '=', 'asc', 2, 2, 2, 'V', 'V', 'upper', 'V');
+Insert into BUS_CAMPO
+   (CVE_GRUPO, CVE_BUSCADOR, CVE_CAMPO, NOM_CAMPO, B_FUNCION, CVE_TABLA, TIPO_DATO, TIPO_FILTRO, TIPO_ORDEN, INDICE_CAMPO, INDICE_ORDEN, ANCHO, B_FILTRO, B_GRID, CVE_TRANS_TEXTO, B_REPORTE)
+ Values
+   ('admctasweb', 'respuestas', 'numConsec', 'NUM_CONSEC', 'F', 'res', 'number', '=', 'asc', 3, 3, 2, 'V', 'V', 'upper', 'V');
+Insert into BUS_CAMPO
+   (CVE_GRUPO, CVE_BUSCADOR, CVE_CAMPO, NOM_CAMPO, B_FUNCION, CVE_TABLA, TIPO_DATO, TIPO_FILTRO, TIPO_ORDEN, INDICE_CAMPO, INDICE_ORDEN, ANCHO, B_FILTRO, B_GRID, CVE_TRANS_TEXTO, B_REPORTE)
+ Values
+   ('admctasweb', 'respuestas', 'nombreTitular', 'NOMB_TITULAR', 'F', 'res', 'string', 'like', 'asc', 4, 4, 3, 'V', 'V', 'upper', 'V');
+Insert into BUS_CAMPO
+   (CVE_GRUPO, CVE_BUSCADOR, CVE_CAMPO, NOM_CAMPO, B_FUNCION, CVE_TABLA, TIPO_DATO, TIPO_FILTRO, TIPO_ORDEN, INDICE_CAMPO, INDICE_ORDEN, ANCHO, B_FILTRO, B_GRID, CVE_TRANS_TEXTO, B_REPORTE)
+ Values
+   ('admctasweb', 'respuestas', 'tipoCaso', 'TIPO_CASO', 'F', 'res', 'string', '=', 'asc', 5, 5, 2, 'V', 'V', 'upper', 'V');
+Insert into BUS_CAMPO
+   (CVE_GRUPO, CVE_BUSCADOR, CVE_CAMPO, NOM_CAMPO, B_FUNCION, CVE_TABLA, TIPO_DATO, TIPO_FILTRO, TIPO_ORDEN, INDICE_CAMPO, INDICE_ORDEN, ANCHO, B_FILTRO, B_GRID, CVE_TRANS_TEXTO, DESC_ETIQUETA, B_REPORTE)
+ Values
+   ('admctasweb', 'dictamenJur', 'numOficio', 'NUM_OFICIO', 'F', 'dcj', 'string', '=', 'asc', 1, 1, 2, 'V', 'V', 'upper', 'Número Oficio', 'V');
+Insert into BUS_CAMPO
+   (CVE_GRUPO, CVE_BUSCADOR, CVE_CAMPO, NOM_CAMPO, B_FUNCION, CVE_TABLA, TIPO_DATO, TIPO_FILTRO, TIPO_ORDEN, INDICE_CAMPO, INDICE_ORDEN, ANCHO, B_FILTRO, B_GRID, CVE_TRANS_TEXTO, DESC_ETIQUETA, B_REPORTE)
+ Values
+   ('admctasweb', 'dictamenJur', 'tipoOficio', 'TIPO_OFICIO', 'F', 'dcj', 'string', '=', 'asc', 2, 2, 2, 'V', 'V', 'upper', 'Tipo Oficio', 'V');
+Insert into BUS_CAMPO
+   (CVE_GRUPO, CVE_BUSCADOR, CVE_CAMPO, NOM_CAMPO, B_FUNCION, CVE_TABLA, TIPO_DATO, TIPO_FILTRO, TIPO_ORDEN, INDICE_CAMPO, INDICE_ORDEN, ANCHO, B_FILTRO, B_GRID, CVE_TRANS_TEXTO, DESC_ETIQUETA, B_REPORTE)
+ Values
+   ('admctasweb', 'dictamenJur', 'numConsec', 'NUM_CONSEC', 'F', 'dcj', 'string', '=', 'asc', 3, 3, 2, 'V', 'V', 'upper', 'Consecutivo', 'V');
+Insert into BUS_CAMPO
+   (CVE_GRUPO, CVE_BUSCADOR, CVE_CAMPO, NOM_CAMPO, B_FUNCION, CVE_TABLA, TIPO_DATO, TIPO_FILTRO, TIPO_ORDEN, INDICE_CAMPO, INDICE_ORDEN, ANCHO, B_FILTRO, B_GRID, CVE_TRANS_TEXTO, DESC_ETIQUETA, B_REPORTE)
+ Values
+   ('admctasweb', 'respuestaOficio', 'idRespuesta', 'ID_RESP', 'F', 'respOficio', 'number', '=', 'asc', 5, 5, 1, 'V', 'V', 'upper', 'Id Respuesta', 'V');
+Insert into BUS_CAMPO
+   (CVE_GRUPO, CVE_BUSCADOR, CVE_CAMPO, NOM_CAMPO, B_FUNCION, CVE_TABLA, TIPO_DATO, TIPO_FILTRO, TIPO_ORDEN, INDICE_CAMPO, INDICE_ORDEN, ANCHO, B_FILTRO, B_GRID, CVE_TRANS_TEXTO, DESC_ETIQUETA, B_REPORTE)
+ Values
+   ('admctasweb', 'oficios', 'descEmpresa', 'DESC_EMPRESA', 'F', 'emp', 'string', '=', 'asc', 13, 13, 3, 'F', 'F', 'upper', 'Desc. Empresa', 'V');
+Insert into BUS_CAMPO
+   (CVE_GRUPO, CVE_BUSCADOR, CVE_CAMPO, NOM_CAMPO, B_FUNCION, CVE_TABLA, TIPO_DATO, TIPO_FILTRO, TIPO_ORDEN, INDICE_CAMPO, INDICE_ORDEN, ANCHO, B_FILTRO, B_GRID, CVE_TRANS_TEXTO, DESC_ETIQUETA, B_REPORTE)
+ Values
+   ('admctasweb', 'oficios', 'direccion', 'TX_DIRECCION', 'F', 'ofi', 'string', '=', 'asc', 14, 14, 1, 'F', 'F', 'upper', 'Dirección', 'V');
+Insert into BUS_CAMPO
+   (CVE_GRUPO, CVE_BUSCADOR, CVE_CAMPO, NOM_CAMPO, B_FUNCION, CVE_TABLA, TIPO_DATO, TIPO_FILTRO, TIPO_ORDEN, INDICE_CAMPO, INDICE_ORDEN, ANCHO, B_FILTRO, B_GRID, CVE_TRANS_TEXTO, DESC_ETIQUETA, B_REPORTE)
+ Values
+   ('admctasweb', 'oficios', 'gerencia', 'TX_GERENCIA', 'F', 'ofi', 'string', '=', 'asc', 15, 15, 1, 'F', 'F', 'upper', 'Gerencia', 'V');
+Insert into BUS_CAMPO
+   (CVE_GRUPO, CVE_BUSCADOR, CVE_CAMPO, NOM_CAMPO, B_FUNCION, CVE_TABLA, TIPO_DATO, TIPO_FILTRO, TIPO_ORDEN, INDICE_CAMPO, INDICE_ORDEN, ANCHO, B_FILTRO, B_GRID, CVE_TRANS_TEXTO, DESC_ETIQUETA, B_REPORTE)
+ Values
+   ('admctasweb', 'similaridad', 'similaridad', 'PORCENT_SIMIL', 'F', 'simil', 'number', 'like', 'asc', 1, 1, 1, 'V', 'V', 'upper', 'Porcentaje', 'V');
+Insert into BUS_CAMPO
+   (CVE_GRUPO, CVE_BUSCADOR, CVE_CAMPO, NOM_CAMPO, B_FUNCION, CVE_TABLA, TIPO_DATO, TIPO_FILTRO, TIPO_ORDEN, INDICE_CAMPO, INDICE_ORDEN, ANCHO, B_FILTRO, B_GRID, CVE_TRANS_TEXTO, DESC_ETIQUETA, B_REPORTE)
+ Values
+   ('admctasweb', 'similaridad', 'usuario', 'CVE_USU_ALTA', 'F', 'simil', 'string', 'like', 'asc', 2, 2, 2, 'V', 'V', 'upper', 'Usuario', 'V');
+Insert into BUS_CAMPO
+   (CVE_GRUPO, CVE_BUSCADOR, CVE_CAMPO, NOM_CAMPO, B_FUNCION, CVE_TABLA, TIPO_DATO, TIPO_FILTRO, TIPO_ORDEN, INDICE_CAMPO, INDICE_ORDEN, ANCHO, B_FILTRO, B_GRID, CVE_TRANS_TEXTO, DESC_ETIQUETA, B_REPORTE)
+ Values
+   ('admctasweb', 'estatusSeg', 'cveEstatus', 'cve_estatus', 'F', 'seg', 'string', 'like', 'asc', 1, 0, 1, 'V', 'V', 'upper', 'Clave Estatus', 'V');
+Insert into BUS_CAMPO
+   (CVE_GRUPO, CVE_BUSCADOR, CVE_CAMPO, NOM_CAMPO, B_FUNCION, CVE_TABLA, TIPO_DATO, TIPO_FILTRO, TIPO_ORDEN, INDICE_CAMPO, INDICE_ORDEN, ANCHO, B_FILTRO, B_GRID, DESC_ETIQUETA, B_REPORTE)
+ Values
+   ('admctasweb', 'estatusSeg', 'descripcion', 'descripcion', 'F', 'seg', 'string', 'like', 'asc', 2, 0, 2, 'V', 'V', 'Descripción', 'V');
+Insert into BUS_CAMPO
+   (CVE_GRUPO, CVE_BUSCADOR, CVE_CAMPO, NOM_CAMPO, B_FUNCION, CVE_TABLA, TIPO_DATO, TIPO_FILTRO, TIPO_ORDEN, INDICE_CAMPO, INDICE_ORDEN, ANCHO, B_FILTRO, B_GRID, CVE_TRANS_TEXTO, DESC_ETIQUETA, B_REPORTE)
+ Values
+   ('admctasweb', 'estatusSeg', 'ordenProceso', 'orden_proceso', 'F', 'seg', 'number', '=', 'asc', 3, 3, 1, 'F', 'F', 'upper', 'Orden Proceso', 'V');
+Insert into BUS_CAMPO
+   (CVE_GRUPO, CVE_BUSCADOR, CVE_CAMPO, NOM_CAMPO, B_FUNCION, CVE_TABLA, TIPO_DATO, TIPO_FILTRO, TIPO_ORDEN, INDICE_CAMPO, INDICE_ORDEN, ANCHO, B_FILTRO, B_GRID, DESC_ETIQUETA, B_REPORTE)
+ Values
+   ('admctasweb', 'destinatarios', 'estatus', 'descripcion', 'F', 'est', 'string', 'like', 'asc', 4, 4, 4, 'V', 'V', 'Estatus Seguimiento', 'V');
+Insert into BUS_CAMPO
+   (CVE_GRUPO, CVE_BUSCADOR, CVE_CAMPO, NOM_CAMPO, B_FUNCION, CVE_TABLA, TIPO_DATO, TIPO_FILTRO, TIPO_ORDEN, INDICE_CAMPO, INDICE_ORDEN, ANCHO, B_FILTRO, B_GRID, CVE_TRANS_TEXTO, DESC_ETIQUETA, B_REPORTE)
+ Values
+   ('admctasweb', 'oficios', 'idEmpresa', 'id_empresa', 'F', 'ofi', 'number', '=', 'asc', 8, 8, 1, 'F', 'F', 'upper', 'Empresa', 'V');
+Insert into BUS_CAMPO
+   (CVE_GRUPO, CVE_BUSCADOR, CVE_CAMPO, NOM_CAMPO, B_FUNCION, CVE_TABLA, TIPO_DATO, TIPO_FILTRO, TIPO_ORDEN, INDICE_CAMPO, INDICE_ORDEN, ANCHO, B_FILTRO, B_GRID, CVE_TRANS_TEXTO, DESC_ETIQUETA, B_REPORTE)
+ Values
+   ('admctasweb', 'oficios', 'tipoCaso', 'tipo_caso', 'F', 'ofi', 'string', '=', 'asc', 9, 9, 1, 'F', 'F', 'upper', 'Tipo Caso', 'V');
+Insert into BUS_CAMPO
+   (CVE_GRUPO, CVE_BUSCADOR, CVE_CAMPO, NOM_CAMPO, B_FUNCION, CVE_TABLA, TIPO_DATO, TIPO_FILTRO, TIPO_ORDEN, INDICE_CAMPO, INDICE_ORDEN, ANCHO, B_FILTRO, B_GRID, CVE_TRANS_TEXTO, DESC_ETIQUETA, B_REPORTE)
+ Values
+   ('admctasweb', 'oficios', 'cveAutoridad', 'cve_autoridad', 'F', 'ofi', 'string', '=', 'asc', 12, 12, 1, 'F', 'F', 'upper', 'Autoridad', 'V');
+Insert into BUS_CAMPO
+   (CVE_GRUPO, CVE_BUSCADOR, CVE_CAMPO, NOM_CAMPO, B_FUNCION, CVE_TABLA, TIPO_DATO, TIPO_FILTRO, TIPO_ORDEN, INDICE_CAMPO, INDICE_ORDEN, ANCHO, B_FILTRO, B_GRID, CVE_TRANS_TEXTO, DESC_ETIQUETA, B_REPORTE)
+ Values
+   ('admctasweb', 'respuestaOficio', 'numOficio', 'NUM_OFICIO', 'F', 'respOficio', 'string', 'like', 'asc', 1, 1, 2, 'V', 'V', 'upper', 'Número Oficio', 'V');
+Insert into BUS_CAMPO
+   (CVE_GRUPO, CVE_BUSCADOR, CVE_CAMPO, NOM_CAMPO, B_FUNCION, CVE_TABLA, TIPO_DATO, TIPO_FILTRO, TIPO_ORDEN, INDICE_CAMPO, INDICE_ORDEN, ANCHO, B_FILTRO, B_GRID, CVE_TRANS_TEXTO, DESC_ETIQUETA, B_REPORTE)
+ Values
+   ('admctasweb', 'respuestaOficio', 'tipoOficio', 'TIPO_OFICIO', 'F', 'respOficio', 'string', 'like', 'asc', 2, 2, 1, 'V', 'V', 'upper', 'Tipo Oficio', 'V');
+Insert into BUS_CAMPO
+   (CVE_GRUPO, CVE_BUSCADOR, CVE_CAMPO, NOM_CAMPO, B_FUNCION, CVE_TABLA, TIPO_DATO, TIPO_FILTRO, TIPO_ORDEN, INDICE_CAMPO, INDICE_ORDEN, ANCHO, B_FILTRO, B_GRID, DESC_ETIQUETA, B_REPORTE)
+ Values
+   ('admctasweb', 'respuestaOficio', 'tipoReq', 'DESC_TIP_REQ', 'F', 'tipReq', 'string', 'like', 'asc', 3, 3, 1, 'V', 'V', 'Tipo de Requerimiento', 'V');
+Insert into BUS_CAMPO
+   (CVE_GRUPO, CVE_BUSCADOR, CVE_CAMPO, NOM_CAMPO, B_FUNCION, CVE_TABLA, TIPO_DATO, TIPO_FILTRO, TIPO_ORDEN, INDICE_CAMPO, INDICE_ORDEN, ANCHO, B_FILTRO, B_GRID, DESC_ETIQUETA, B_REPORTE)
+ Values
+   ('admctasweb', 'respuestaOficio', 'tipoSol', 'DESC_TIP_SOL', 'F', 'tipSol', 'string', 'like', 'asc', 4, 4, 1, 'V', 'V', 'Tipo de Solicitud', 'V');
+Insert into BUS_CAMPO
+   (CVE_GRUPO, CVE_BUSCADOR, CVE_CAMPO, NOM_CAMPO, B_FUNCION, CVE_TABLA, TIPO_DATO, TIPO_FILTRO, TIPO_ORDEN, INDICE_CAMPO, INDICE_ORDEN, ANCHO, B_FILTRO, B_GRID, CVE_TRANS_TEXTO, DESC_ETIQUETA, B_REPORTE)
+ Values
+   ('admctasweb', 'bitacoraDocsElimados', 'numOficio', 'NUM_OFICIO', 'F', 'bitDocsElim', 'string', 'like', 'asc', 1, 1, 3, 'V', 'V', 'upper', 'Número Oficio', 'V');
+Insert into BUS_CAMPO
+   (CVE_GRUPO, CVE_BUSCADOR, CVE_CAMPO, NOM_CAMPO, B_FUNCION, CVE_TABLA, TIPO_DATO, TIPO_FILTRO, TIPO_ORDEN, INDICE_CAMPO, INDICE_ORDEN, ANCHO, B_FILTRO, B_GRID, CVE_TRANS_TEXTO, DESC_ETIQUETA, B_REPORTE)
+ Values
+   ('admctasweb', 'bitacoraDocsElimados', 'tipoOficio', 'TIPO_OFICIO', 'F', 'bitDocsElim', 'string', 'like', 'asc', 2, 2, 1, 'V', 'V', 'upper', 'Tipo Oficio', 'V');
+Insert into BUS_CAMPO
+   (CVE_GRUPO, CVE_BUSCADOR, CVE_CAMPO, NOM_CAMPO, B_FUNCION, CVE_TABLA, TIPO_DATO, TIPO_FILTRO, TIPO_ORDEN, INDICE_CAMPO, INDICE_ORDEN, ANCHO, B_FILTRO, B_GRID, CVE_TRANS_TEXTO, DESC_ETIQUETA, B_REPORTE)
+ Values
+   ('admctasweb', 'bitacoraDocsElimados', 'cveDocto', 'CVE_DOCTO', 'F', 'bitDocsElim', 'string', 'like', 'asc', 3, 3, 2, 'V', 'V', 'upper', 'Clave Documento', 'V');
+Insert into BUS_CAMPO
+   (CVE_GRUPO, CVE_BUSCADOR, CVE_CAMPO, NOM_CAMPO, B_FUNCION, CVE_TABLA, TIPO_DATO, TIPO_FILTRO, TIPO_ORDEN, INDICE_CAMPO, INDICE_ORDEN, ANCHO, B_FILTRO, B_GRID, CVE_TRANS_TEXTO, DESC_ETIQUETA, B_REPORTE)
+ Values
+   ('admctasweb', 'bitacoraDocsElimados', 'nomDocto', 'NOM_DOCTO', 'F', 'bitDocsElim', 'string', 'like', 'asc', 4, 4, 3, 'V', 'V', 'upper', 'Número Documento', 'V');
+Insert into BUS_CAMPO
+   (CVE_GRUPO, CVE_BUSCADOR, CVE_CAMPO, NOM_CAMPO, B_FUNCION, CVE_TABLA, TIPO_DATO, TIPO_FILTRO, TIPO_ORDEN, INDICE_CAMPO, INDICE_ORDEN, ANCHO, B_FILTRO, B_GRID, CVE_TRANS_TEXTO, DESC_ETIQUETA, B_REPORTE)
+ Values
+   ('admctasweb', 'oficios', 'sitOficio', 'sit_oficio', 'F', 'ofi', 'string', 'like', 'asc', 6, 6, 1, 'V', 'V', 'upper', 'Situación', 'V');
+Insert into BUS_CAMPO
+   (CVE_GRUPO, CVE_BUSCADOR, CVE_CAMPO, NOM_CAMPO, B_FUNCION, CVE_TABLA, TIPO_DATO, TIPO_FILTRO, TIPO_ORDEN, INDICE_CAMPO, INDICE_ORDEN, ANCHO, B_FILTRO, B_GRID, CVE_TRANS_TEXTO, DESC_ETIQUETA, B_REPORTE)
+ Values
+   ('admctasweb', 'autoridades', 'cveAutoridad', 'cve_autoridad', 'F', 'aut', 'string', 'like', 'asc', 1, 1, 1, 'V', 'V', 'upper', 'Clave Autoridad', 'V');
+Insert into BUS_CAMPO
+   (CVE_GRUPO, CVE_BUSCADOR, CVE_CAMPO, NOM_CAMPO, B_FUNCION, CVE_TABLA, TIPO_DATO, TIPO_FILTRO, TIPO_ORDEN, INDICE_CAMPO, INDICE_ORDEN, ANCHO, B_FILTRO, B_GRID, CVE_TRANS_TEXTO, DESC_ETIQUETA, B_REPORTE)
+ Values
+   ('admctasweb', 'autoridades', 'nomAutoridad', 'nom_autoridad', 'F', 'aut', 'string', 'like', 'asc', 2, 2, 3, 'V', 'V', 'upper', 'Nombre Autoridad', 'V');
+Insert into BUS_CAMPO
+   (CVE_GRUPO, CVE_BUSCADOR, CVE_CAMPO, NOM_CAMPO, B_FUNCION, CVE_TABLA, TIPO_DATO, TIPO_FILTRO, TIPO_ORDEN, INDICE_CAMPO, INDICE_ORDEN, ANCHO, B_FILTRO, B_GRID, CVE_TRANS_TEXTO, DESC_ETIQUETA, B_REPORTE)
+ Values
+   ('admctasweb', 'autoridades', 'sitAutoridad', 'sit_autoridad', 'F', 'aut', 'string', 'like', 'asc', 3, 3, 1, 'V', 'V', 'upper', 'Situación', 'V');
+Insert into BUS_CAMPO
+   (CVE_GRUPO, CVE_BUSCADOR, CVE_CAMPO, NOM_CAMPO, B_FUNCION, CVE_TABLA, TIPO_DATO, TIPO_FILTRO, TIPO_ORDEN, INDICE_CAMPO, INDICE_ORDEN, ANCHO, B_FILTRO, B_GRID, CVE_TRANS_TEXTO, DESC_ETIQUETA, B_REPORTE)
+ Values
+   ('admctasweb', 'oficios', 'numOficio', 'num_oficio', 'F', 'ofi', 'string', 'like', 'asc', 1, 1, 2, 'V', 'V', 'upper', 'Número Oficio', 'V');
+Insert into BUS_CAMPO
+   (CVE_GRUPO, CVE_BUSCADOR, CVE_CAMPO, NOM_CAMPO, B_FUNCION, CVE_TABLA, TIPO_DATO, TIPO_FILTRO, TIPO_ORDEN, INDICE_CAMPO, INDICE_ORDEN, ANCHO, B_FILTRO, B_GRID, CVE_TRANS_TEXTO, DESC_ETIQUETA, B_REPORTE)
+ Values
+   ('admctasweb', 'oficios', 'tipoOficio', 'tipo_oficio', 'F', 'ofi', 'string', 'like', 'asc', 2, 2, 1, 'V', 'V', 'upper', 'Tipo Oficio', 'V');
+Insert into BUS_CAMPO
+   (CVE_GRUPO, CVE_BUSCADOR, CVE_CAMPO, NOM_CAMPO, B_FUNCION, CVE_TABLA, TIPO_DATO, TIPO_FILTRO, TIPO_ORDEN, INDICE_CAMPO, INDICE_ORDEN, ANCHO, B_FILTRO, B_GRID, CVE_TRANS_TEXTO, DESC_ETIQUETA, B_REPORTE)
+ Values
+   ('admctasweb', 'oficios', 'numFolio', 'num_folio', 'F', 'ofi', 'string', 'like', 'asc', 3, 3, 1, 'V', 'V', 'upper', 'Folio', 'V');
+Insert into BUS_CAMPO
+   (CVE_GRUPO, CVE_BUSCADOR, CVE_CAMPO, NOM_CAMPO, B_FUNCION, CVE_TABLA, TIPO_DATO, TIPO_FILTRO, TIPO_ORDEN, INDICE_CAMPO, INDICE_ORDEN, ANCHO, B_FILTRO, B_GRID, CVE_TRANS_TEXTO, DESC_ETIQUETA, B_REPORTE)
+ Values
+   ('admctasweb', 'oficios', 'numExped', 'num_exped', 'F', 'ofi', 'string', 'like', 'asc', 4, 4, 2, 'V', 'V', 'upper', 'Expediente', 'V');
+Insert into BUS_CAMPO
+   (CVE_GRUPO, CVE_BUSCADOR, CVE_CAMPO, NOM_CAMPO, B_FUNCION, CVE_TABLA, TIPO_DATO, TIPO_FILTRO, TIPO_ORDEN, INDICE_CAMPO, INDICE_ORDEN, ANCHO, B_FILTRO, B_GRID, CVE_TRANS_TEXTO, DESC_ETIQUETA, B_REPORTE)
+ Values
+   ('admctasweb', 'oficios', 'numRegistro', 'num_registro', 'F', 'ofi', 'string', 'like', 'asc', 5, 5, 1, 'V', 'V', 'upper', 'Registro', 'V');
+Insert into BUS_CAMPO
+   (CVE_GRUPO, CVE_BUSCADOR, CVE_CAMPO, NOM_CAMPO, B_FUNCION, CVE_TABLA, TIPO_DATO, TIPO_FILTRO, TIPO_ORDEN, INDICE_CAMPO, INDICE_ORDEN, ANCHO, B_FILTRO, B_GRID, CVE_TRANS_TEXTO, DESC_ETIQUETA, B_REPORTE)
+ Values
+   ('admctasweb', 'oficios', 'fhOficio', 'f_oficio', 'F', 'ofi', 'date', '=', 'asc', 7, 7, 1, 'V', 'V', 'upper', 'Fecha Oficio', 'V');
+Insert into BUS_CAMPO
+   (CVE_GRUPO, CVE_BUSCADOR, CVE_CAMPO, NOM_CAMPO, B_FUNCION, CVE_TABLA, TIPO_DATO, TIPO_FILTRO, TIPO_ORDEN, INDICE_CAMPO, INDICE_ORDEN, ANCHO, B_FILTRO, B_GRID, CVE_TRANS_TEXTO, DESC_ETIQUETA, B_REPORTE)
+ Values
+   ('admctasweb', 'destinatarios', 'idDestinatario', 'id_destinatario', 'F', 'dest', 'number', 'like', 'asc', 1, 1, 1, 'V', 'V', 'upper', 'Id', 'V');
+Insert into BUS_CAMPO
+   (CVE_GRUPO, CVE_BUSCADOR, CVE_CAMPO, NOM_CAMPO, B_FUNCION, CVE_TABLA, TIPO_DATO, TIPO_FILTRO, TIPO_ORDEN, INDICE_CAMPO, INDICE_ORDEN, ANCHO, B_FILTRO, B_GRID, DESC_ETIQUETA, B_REPORTE)
+ Values
+   ('admctasweb', 'destinatarios', 'nombre', 'nombre_destinat', 'F', 'dest', 'string', 'like', 'asc', 2, 2, 3, 'V', 'V', 'Nombre Destinatario', 'V');
+Insert into BUS_CAMPO
+   (CVE_GRUPO, CVE_BUSCADOR, CVE_CAMPO, NOM_CAMPO, B_FUNCION, CVE_TABLA, TIPO_DATO, TIPO_FILTRO, TIPO_ORDEN, INDICE_CAMPO, INDICE_ORDEN, ANCHO, B_FILTRO, B_GRID, DESC_ETIQUETA, B_REPORTE)
+ Values
+   ('admctasweb', 'destinatarios', 'correo', 'correo', 'F', 'dest', 'string', 'like', 'asc', 3, 3, 3, 'V', 'V', 'Correo', 'V');
+Insert into BUS_CAMPO
+   (CVE_GRUPO, CVE_BUSCADOR, CVE_CAMPO, NOM_CAMPO, B_FUNCION, CVE_TABLA, TIPO_DATO, TIPO_FILTRO, TIPO_ORDEN, INDICE_CAMPO, INDICE_ORDEN, ANCHO, B_FILTRO, B_GRID, CVE_TRANS_TEXTO, DESC_ETIQUETA, B_REPORTE)
+ Values
+   ('admctasweb', 'personas', 'numOficio', 'NUM_OFICIO', 'F', 'per', 'string', 'like', 'asc', 1, 1, 2, 'V', 'V', 'upper', 'Num. Oficio', 'V');
+Insert into BUS_CAMPO
+   (CVE_GRUPO, CVE_BUSCADOR, CVE_CAMPO, NOM_CAMPO, B_FUNCION, CVE_TABLA, TIPO_DATO, TIPO_FILTRO, TIPO_ORDEN, INDICE_CAMPO, INDICE_ORDEN, ANCHO, B_FILTRO, B_GRID, CVE_TRANS_TEXTO, DESC_ETIQUETA, B_REPORTE)
+ Values
+   ('admctasweb', 'personas', 'tipoOficio', 'TIPO_OFICIO', 'F', 'per', 'string', 'like', 'asc', 2, 2, 1, 'V', 'V', 'upper', 'Tipo Oficio', 'V');
+Insert into BUS_CAMPO
+   (CVE_GRUPO, CVE_BUSCADOR, CVE_CAMPO, NOM_CAMPO, B_FUNCION, CVE_TABLA, TIPO_DATO, TIPO_FILTRO, TIPO_ORDEN, INDICE_CAMPO, INDICE_ORDEN, ANCHO, B_FILTRO, B_GRID, CVE_TRANS_TEXTO, DESC_ETIQUETA, B_REPORTE)
+ Values
+   ('admctasweb', 'personas', 'numConsec', 'NUM_CONSEC', 'F', 'per', 'string', 'like', 'asc', 3, 3, 1, 'V', 'V', 'upper', 'Consecutivo', 'V');
+Insert into BUS_CAMPO
+   (CVE_GRUPO, CVE_BUSCADOR, CVE_CAMPO, NOM_CAMPO, B_FUNCION, CVE_TABLA, TIPO_DATO, TIPO_FILTRO, TIPO_ORDEN, INDICE_CAMPO, INDICE_ORDEN, ANCHO, B_FILTRO, B_GRID, CVE_TRANS_TEXTO, DESC_ETIQUETA, B_REPORTE)
+ Values
+   ('admctasweb', 'personas', 'nombre', 'NOMBRE', 'F', 'per', 'string', 'like', 'asc', 4, 4, 3, 'V', 'V', 'upper', 'Nombre', 'V');
+Insert into BUS_CAMPO
+   (CVE_GRUPO, CVE_BUSCADOR, CVE_CAMPO, NOM_CAMPO, B_FUNCION, CVE_TABLA, TIPO_DATO, TIPO_FILTRO, TIPO_ORDEN, INDICE_CAMPO, INDICE_ORDEN, ANCHO, B_FILTRO, B_GRID, CVE_TRANS_TEXTO, DESC_ETIQUETA, B_REPORTE)
+ Values
+   ('admctasweb', 'dirSolicitantes', 'idConfiguracion', 'ID_CONFIG_DIR', 'F', 'dirSol', 'number', '=', 'asc', 1, 1, 1, 'V', 'V', 'upper', 'Id', 'V');
+Insert into BUS_CAMPO
+   (CVE_GRUPO, CVE_BUSCADOR, CVE_CAMPO, NOM_CAMPO, B_FUNCION, CVE_TABLA, TIPO_DATO, TIPO_FILTRO, TIPO_ORDEN, INDICE_CAMPO, INDICE_ORDEN, ANCHO, B_FILTRO, B_GRID, CVE_TRANS_TEXTO, DESC_ETIQUETA, B_REPORTE)
+ Values
+   ('admctasweb', 'dirSolicitantes', 'tipoOficio', 'TIPO_OFICIO', 'F', 'dirSol', 'string', 'like', 'asc', 2, 2, 1, 'V', 'V', 'upper', 'Tipo Oficio', 'V');
+Insert into BUS_CAMPO
+   (CVE_GRUPO, CVE_BUSCADOR, CVE_CAMPO, NOM_CAMPO, B_FUNCION, CVE_TABLA, TIPO_DATO, TIPO_FILTRO, TIPO_ORDEN, INDICE_CAMPO, INDICE_ORDEN, ANCHO, B_FILTRO, B_GRID, CVE_TRANS_TEXTO, DESC_ETIQUETA, B_REPORTE)
+ Values
+   ('admctasweb', 'dirSolicitantes', 'direccion', 'TX_DIRECCION', 'F', 'dirSol', 'string', 'like', 'asc', 3, 3, 2, 'V', 'V', 'upper', 'Dirección', 'V');
+Insert into BUS_CAMPO
+   (CVE_GRUPO, CVE_BUSCADOR, CVE_CAMPO, NOM_CAMPO, B_FUNCION, CVE_TABLA, TIPO_DATO, TIPO_FILTRO, TIPO_ORDEN, INDICE_CAMPO, INDICE_ORDEN, ANCHO, B_FILTRO, B_GRID, CVE_TRANS_TEXTO, DESC_ETIQUETA, B_REPORTE)
+ Values
+   ('admctasweb', 'dirSolicitantes', 'gerencia', 'TX_GERENCIA', 'F', 'dirSol', 'string', 'like', 'asc', 4, 4, 2, 'V', 'V', 'upper', 'Gerencia', 'V');
+Insert into BUS_CAMPO
+   (CVE_GRUPO, CVE_BUSCADOR, CVE_CAMPO, NOM_CAMPO, B_FUNCION, CVE_TABLA, TIPO_DATO, TIPO_FILTRO, TIPO_ORDEN, INDICE_CAMPO, INDICE_ORDEN, ANCHO, B_FILTRO, B_GRID, CVE_TRANS_TEXTO, DESC_ETIQUETA, B_REPORTE)
+ Values
+   ('admctasweb', 'dirSolicitantes', 'subgerencia', 'TX_SUBGERENCIA', 'F', 'dirSol', 'string', 'like', 'asc', 5, 5, 1, 'V', 'V', 'upper', 'Subgerencia', 'V');
+Insert into BUS_CAMPO
+   (CVE_GRUPO, CVE_BUSCADOR, CVE_CAMPO, NOM_CAMPO, B_FUNCION, CVE_TABLA, TIPO_DATO, TIPO_FILTRO, TIPO_ORDEN, INDICE_CAMPO, INDICE_ORDEN, ANCHO, B_FILTRO, B_GRID, CVE_TRANS_TEXTO, DESC_ETIQUETA, B_REPORTE)
+ Values
+   ('admctasweb', 'dirSolicitantes', 'nombreAtencion', 'TX_ATN_NOMBRE', 'F', 'dirSol', 'string', 'like', 'asc', 6, 6, 2, 'V', 'V', 'upper', 'Nombre Atención', 'V');
+Insert into BUS_CAMPO
+   (CVE_GRUPO, CVE_BUSCADOR, CVE_CAMPO, NOM_CAMPO, B_FUNCION, CVE_TABLA, TIPO_DATO, TIPO_FILTRO, TIPO_ORDEN, INDICE_CAMPO, INDICE_ORDEN, ANCHO, B_FILTRO, B_GRID, CVE_TRANS_TEXTO, DESC_ETIQUETA, B_REPORTE)
+ Values
+   ('admctasweb', 'dirSolicitantes', 'puestoAtencion', 'TX_ATN_PUESTO', 'F', 'dirSol', 'string', 'like', 'asc', 7, 7, 1, 'V', 'V', 'upper', 'Puesto Atención', 'V');
+Insert into BUS_CAMPO
+   (CVE_GRUPO, CVE_BUSCADOR, CVE_CAMPO, NOM_CAMPO, B_FUNCION, CVE_TABLA, TIPO_DATO, TIPO_FILTRO, TIPO_ORDEN, INDICE_CAMPO, INDICE_ORDEN, ANCHO, B_FILTRO, B_GRID, CVE_TRANS_TEXTO, DESC_ETIQUETA, B_REPORTE)
+ Values
+   ('admctasweb', 'dirSolicitantes', 'situacion', 'SIT_CONFIG_DIR', 'F', 'dirSol', 'string', 'like', 'asc', 8, 8, 1, 'V', 'V', 'upper', 'Situación', 'V');
+Insert into BUS_CAMPO
+   (CVE_GRUPO, CVE_BUSCADOR, CVE_CAMPO, NOM_CAMPO, B_FUNCION, CVE_TABLA, TIPO_DATO, TIPO_FILTRO, TIPO_ORDEN, INDICE_CAMPO, INDICE_ORDEN, ANCHO, B_FILTRO, B_GRID, CVE_TRANS_TEXTO, DESC_ETIQUETA, B_REPORTE)
+ Values
+   ('admctasweb', 'personas', 'paterno', 'AP_PATERNO', 'F', 'per', 'string', 'like', 'asc', 5, 5, 3, 'V', 'V', 'upper', 'Paterno', 'V');
+Insert into BUS_CAMPO
+   (CVE_GRUPO, CVE_BUSCADOR, CVE_CAMPO, NOM_CAMPO, B_FUNCION, CVE_TABLA, TIPO_DATO, TIPO_FILTRO, TIPO_ORDEN, INDICE_CAMPO, INDICE_ORDEN, ANCHO, B_FILTRO, B_GRID, CVE_TRANS_TEXTO, DESC_ETIQUETA, B_REPORTE)
+ Values
+   ('admctasweb', 'personas', 'materno', 'AP_MATERNO', 'F', 'per', 'string', 'like', 'asc', 6, 6, 3, 'V', 'V', 'upper', 'Materno', 'V');
+Insert into BUS_CAMPO
+   (CVE_GRUPO, CVE_BUSCADOR, CVE_CAMPO, NOM_CAMPO, B_FUNCION, CVE_TABLA, TIPO_DATO, TIPO_FILTRO, TIPO_ORDEN, INDICE_CAMPO, INDICE_ORDEN, ANCHO, B_FILTRO, B_GRID, CVE_TRANS_TEXTO, DESC_ETIQUETA, B_REPORTE)
+ Values
+   ('admctasweb', 'personas', 'rfc', 'RFC', 'F', 'per', 'string', 'like', 'asc', 7, 7, 2, 'V', 'V', 'upper', 'RFC', 'V');
+Insert into BUS_CAMPO
+   (CVE_GRUPO, CVE_BUSCADOR, CVE_CAMPO, NOM_CAMPO, B_FUNCION, CVE_TABLA, TIPO_DATO, TIPO_FILTRO, TIPO_ORDEN, INDICE_CAMPO, INDICE_ORDEN, ANCHO, B_FILTRO, B_GRID, CVE_TRANS_TEXTO, DESC_ETIQUETA, B_REPORTE)
+ Values
+   ('admctasweb', 'personas', 'tipoPersona', 'TIPO_PERSONA', 'F', 'per', 'string', 'like', 'asc', 8, 8, 1, 'V', 'V', 'upper', 'Tipo Persona', 'V');
+   
+COMMIT;
+
+
+

@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:util="http://www.springframework.org/schema/util" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:aop="http://www.springframework.org/schema/aop" xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+		http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-2.5.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-2.5.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.5.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.5.xsd">
+	
+	<context:component-scan base-package="com.gfi.bin.admctasweb.mail.service.impl, com.gfi.bin.admctasweb.jasper" />
+	
+
+	
+	<!--Lectura del fichero administrable  -->
+	<bean id="propertyConfigurerEmail" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+		<property name="ignoreUnresolvablePlaceholders">
+			<value>true</value>
+		</property>
+		<property name="locations">
+			<list>
+				<value>classpath:mail.properties</value>				
+			</list>
+		</property>
+	</bean>
+
+	
+	<!-- Authenticator implementation -->
+	<bean id="smtpAuthenticator" class="com.gfi.bin.admctasweb.mail.util.SmtpAuthenticator">
+		<constructor-arg value="${mail.user}" />
+		<constructor-arg value="${mail.password}" />
+	</bean>
+
+	<!--setup an authenticated session -->
+	<bean id="mailSession" class="javax.mail.Session" factory-method="getInstance">
+		<constructor-arg>
+			<props>
+				<prop key="mail.smtp.auth">${mail.smtp.auth}</prop>
+				<prop key="mail.smtp.starttls.enable">${mail.smtp.starttls.enable}</prop>
+				<prop key="mail.smtp.socketFactory.port">${mail.smtp.port}</prop>
+				<prop key="mail.smtp.socketFactory.class">${mail.smtp.socketFactory.class}</prop>
+				<prop key="mail.smtp.socketFactory.fallback">${mail.smtp.socketFactory.fallback}</prop>
+			</props>
+		</constructor-arg>
+		<constructor-arg ref="smtpAuthenticator" />
+	</bean>
+
+	<!--#Configuración del servicio de Spring: MailSernder -->
+	<bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
+		<property name="host" value="${server.mail.host}" />
+		<property name="session" ref="mailSession" />
+		 <property name="defaultEncoding" value="UTF-8"/>
+	</bean>
+	
+	
+
+	<!--#Configuración de nuestro servicio:MailService -->
+	<bean id="mailService" class="com.gfi.bin.admctasweb.mail.service.impl.MailServiceImpl">
+	  <property name="active" value="true"/>
+	  <property name="mailSender" ref="mailSender"/>
+	  <property name="from" value="${mail.user}"/>
+	</bean>
+	
+	  <!--#Configuración de nuestro proveedor de mensaje: EmailMessageProvider-->
+	<bean id="velocityEmailMessageProviderImpl" class="com.gfi.bin.admctasweb.mail.service.impl.VelocityEmailMessageProviderImpl">
+	 <property name="inlineFiles"> 
+		<map>
+			<entry>
+				<key>
+					<value>logoGFI</value>
+				</key>
+				<value>classpath:mail/logo_gfinan.jpg</value>
+			</entry>
+		</map>
+	  </property>
+	</bean> 
+
+	<bean id="velocityEngine"
+		class="org.springframework.ui.velocity.VelocityEngineFactoryBean">
+		<property name="velocityProperties">
+			<value>
+				resource.loader=class
+				class.resource.loader.class=org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader
+				dateToolAttribute=org.apache.velocity.tools.generic.DateTool
+			</value>
+		</property>
+	</bean>
+	
+	
+	
+</beans>

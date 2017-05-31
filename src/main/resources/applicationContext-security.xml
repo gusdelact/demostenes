@@ -1,0 +1,623 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:sec="http://www.springframework.org/schema/security"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:jaxws="http://cxf.apache.org/jaxws"
+    xmlns:util="http://www.springframework.org/schema/util"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+                        http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-2.0.1.xsd
+                        http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd
+                        http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-2.5.xsd">
+<!-- FIX: NO INCLUIR -->                        
+<!-- CONSTANTES  NO INCLUIR-->
+	
+	<bean id="applicationInfo_ARQ_SEC" class="com.gfi.security.model.Application">
+		<property name="id" value="${com.gfi.seguridad.spring.idAplicacion}"/>
+	</bean>
+	
+	<bean id="applicationConstants_ARQ_SEC" class="com.gfi.security.util.Constants">
+		<property name="applicationInfo" ref="applicationInfo_ARQ_SEC"/>
+	</bean>
+	
+<!-- ==== Oracle Coherence ==== -->
+	
+	  
+	<bean id="cacheFactory" class="com.tangosol.coherence.spring.SpringAwareCacheFactory" />
+	
+	<bean class="org.springframework.beans.factory.config.MethodInvokingFactoryBean">
+		<property name="targetClass" value="com.tangosol.net.CacheFactory" />
+		<property name="targetMethod" value="setConfigurableCacheFactory" />
+		<property name="arguments" ref="cacheFactory" />
+	</bean>
+	
+<!-- DB: para integracion con i-Line -->
+	<bean id="dataSourcePcorp"  class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
+    		<property name="driverClassName" value="oracle.jdbc.OracleDriver"/>
+		<property name="url"             value="jdbc:oracle:thin:@172.20.51.5:1522:pcorp"/>
+		<property name="username"        value="sistemas"/>
+		<property name="password"        value="desarrollo"/>
+		<property name="initialSize"     value="10"/>
+		<property name="maxActive"       value="40"/>
+		<property name="maxIdle"         value="20"/>
+	</bean>
+	
+	<!-- WebService para sincronizacion de sessiones con ILine -->
+	
+	<bean id="TokenWSServer" class="java.lang.String">
+    	<constructor-arg type="java.lang.String" value="http://200.33.202.80:5010/axis2/services/SecurityServices1.0/"/>
+    </bean>
+	
+	<bean id="WS_BooleanResponse" class="java.lang.String">
+    	<constructor-arg type="java.lang.String">
+    		<value>
+    			<![CDATA[<!DOCTYPE mapping PUBLIC "-//EXOLAB/Castor Mapping DTD Version 1.0//EN" 
+						"http://castor.org/mapping.dtd"> 
+						<mapping> 
+							<class name="com.gfi.security.webservice.client.response.WSBooleanResponse"> 
+							 	<map-to xml="existeTokenResponse" ns-uri="http://ejb.acl.seguridad/xsd" ns-prefix="ns"/> 
+								<field name="response" type="java.lang.Boolean"> 
+									<bind-xml name="return" node="element"/> 
+								</field> 
+							</class> 
+						</mapping>]]>
+			</value>
+		</constructor-arg>
+    </bean>
+	
+	<bean id="iLineSessionWS" class="com.gfi.security.webservice.client.RefreshSessionWSClient">
+		<property name="serverURL" ref="TokenWSServer"/>
+		<property name="method" value="cambiaSession"/>
+		<property name="response" ref="WS_BooleanResponse"/>
+	</bean>
+	
+    <!-- WebService para verificar si un usuario tiene o no token asignado -->
+	<bean id="existeTokenWS" class="com.gfi.security.webservice.client.ExisteTokenWSClient">
+		<property name="serverURL" ref="TokenWSServer"/>
+		<property name="method" value="existeToken"/>
+		<property name="response" ref="WS_BooleanResponse"/>
+	</bean>
+
+<!-- ========================== -->
+                      
+<!-- DAOS y SERVICIOS -->
+
+	<bean id="coherenceSequence" class="com.gfi.security.dao.impl.CoherenceSequenceDaoImpl">
+		<!--  <property name="cacheSecurity" ref="cacheSecurity"/> -->	
+		<property name="cacheFactory" ref="cacheFactory"/>
+	</bean>
+	
+	<bean id="applicationDAO_ARQ_SEC" class="com.gfi.security.dao.impl.ApplicationDAO">
+		<!--  <property name="cacheUtil" ref="cacheSecurity"/> -->
+		<property name="cacheFactory" ref="cacheFactory"/>
+		<property name="applicationInfo" ref="applicationInfo_ARQ_SEC"/>
+		<property name="sequenceDAO" ref="coherenceSequence"/>
+	</bean>
+	
+	<bean id="userDAOSecurity" class="com.gfi.security.dao.impl.UserDAOImpl">
+		<property name="applicationInfo" ref="applicationInfo_ARQ_SEC"/>
+		<!--  <property name="cacheUtil" ref="cacheSecurity"/> -->
+		<property name="cacheFactory" ref="cacheFactory"/>
+		<property name="serviceMenu" ref="serviceMenu"/>
+	</bean>
+	
+	<bean id="authorityDAO" class="com.gfi.security.dao.impl.AuthorityDAOImpl">
+		<property name="applicationInfo" ref="applicationInfo_ARQ_SEC"/>
+		<!--  <property name="cacheUtil" ref="cacheSecurity"/> -->
+		<property name="cacheFactory" ref="cacheFactory"/>
+	</bean>
+	
+	<bean id="iLineIntegrationDAO" class="com.gfi.security.dao.impl.ILineIntegrationDAOImpl">
+		<property name="dataSource" ref="dataSourcePcorp"/>
+	</bean>
+	
+<!-- FIN:DAOS y SERVICIOS -->
+
+<!-- BITACORA-->
+
+	<bean id="logQueue" class="com.gfi.security.util.queue.GFIAdvancedQueue">
+		<constructor-arg value="/home/dmcapbk/rutatmp/"/> 
+<!-- 		<constructor-arg value="/home/dmcapbk/rutatmp/"/> -->
+		<property name="maxElements" value="5"/>
+	</bean>
+<!--
+	<bean id="GFISecurityLogger" class="com.gfi.security.util.impl.QueueGFISecurityLogger">
+		<constructor-arg ref="applicationInfo_ARQ_SEC"/>
+		<property name="noDebugList">
+			<list>
+				<value>pAuth_password</value>
+			</list>
+		</property>
+		<property name="queue" ref="logQueue"/>
+	</bean>
+	
+	<! cliente >
+	<bean id="GFISocketClientManager" class="com.gfi.security.log.net.GFISocketClientManager" init-method="init">
+		<property name="application" ref="applicationInfo_ARQ_SEC"/>
+		<property name="queue" ref="logQueue"/>
+		<property name="groupSize" value="10"/>
+		<property name="cronExpression" value="0 02 17 ? * *"/>  
+	</bean>
+-->
+ 
+	<bean id="GFISecurityLogger" class="com.gfi.security.util.impl.Log4jGFISecurityLogger">
+		<constructor-arg value="/home/dmcapbk/rutatmp/"/>
+<!-- 		<constructor-arg value="/home/dmcapbk/rutatmp/"/> -->
+		<constructor-arg ref="applicationInfo_ARQ_SEC"/>
+		<constructor-arg value="'.'yyyy-ww"/>
+		<property name="noDebugList">
+			<list>
+				<value>pAuth_password</value>
+			</list>
+		</property>
+		<!--
+			DATEPATTERN    		Periodo
+			'.'yyyy-MM  		-> 	mensual
+			'.'yyyy-ww			->  semanal
+			'.'yyyy-MM-dd		->	diario (media noche)
+			'.'yyyy-MM-dd-a		->	cada 12 horas
+			'.'yyyy-MM-dd-HH	->  cada hora
+			'.'yyyy-MM-dd-HH.mm ->  cada minuto
+		-->
+	</bean>
+	
+<!-- FIN: BITACORA -->
+
+
+<!-- MENSAJERIA con SOCKETS | Actualizacion de estatus  -->
+	<bean id="ActionTriggersList" class="com.gfi.security.net.messages.util.ListWrapper">
+		<property name="list">
+			<list>
+				<bean class="com.gfi.security.net.messages.providers.impl.ApplicationStatusSenderTrigger"/>
+				<bean class="com.gfi.security.net.messages.providers.impl.KillSessionTrigger">
+					<property name="sessionRegistryImpl" ref="sessionRegistry"/>
+				</bean>
+				<bean class="com.gfi.security.net.messages.providers.impl.UpdateRealTimeTrigger">
+					<property name="revokedUsers" ref="revokedUsers"/> 
+					<property name="updatableUsers" ref="updatableUsers"/>
+				</bean>
+				<bean class="com.gfi.security.net.messages.providers.impl.SessionListSenderTrigger">
+					<property name="smi" ref="synchMaps"/>
+				</bean>
+				<bean class="com.gfi.security.net.messages.providers.impl.ReloadSecurityObjectsTrigger">
+					<property name="userManagerService" ref="customUserManagerService"/>
+					<property name="fsi" ref = "filterSecurityInterceptor"/>
+					<property name="appDAO" ref = "applicationDAO_ARQ_SEC"/>
+					<property name="gfiOpConfirmation" ref = "GFIOperationConfirmationFilter"/>
+				</bean>
+			</list>
+		</property>
+	</bean>
+	<!-- 
+	<bean id="SMClient" class="com.gfi.security.net.messages.client.SMClient" init-method="init">
+		<property name="applicationInfo" ref="applicationInfo_ARQ_SEC"/>
+		<property name="host" value="172.20.26.152"/>
+		<property name="port" value="6090"/>
+		<property name="retryWaitTime" value="6000"/>
+		<property name="triggers" ref="ActionTriggersList"/>
+	</bean>
+-->
+
+<!-- FIN: MENSAJERIA con SOCKETS -->
+
+<!-- Actualizacion de objetos -->
+	<bean id="revokedUsers" class="java.util.LinkedList"/>
+	<bean id="updatableUsers" class="java.util.LinkedList"/>
+<!-- FIn: actualizacion de objetos -->
+
+<!-- CONFIGURANDO FILTER-CHAIN -->
+
+
+	<bean id="springSecurityFilterChain" class="org.springframework.security.util.FilterChainProxy">  <!-- org.springframework.security.web.FilterChainProxy -->
+   		<property name="filterInvocationDefinitionSource">
+            <value><![CDATA[
+	       		CONVERT_URL_TO_LOWERCASE_BEFORE_COMPARISON
+    	  		PATTERN_TYPE_APACHE_ANT
+      			/resources/**=#NONE#
+      			/ext-js-4.1.0/**=#NONE#
+      			/js/**=#NONE#
+				/sessionclosed.htm=#NONE#
+				/simple_loginform.htm=#NONE#
+				/advanced_loginform.htm=#NONE#
+				/onlytoken_loginform.htm=#NONE#
+				/accessdenied.htm=#NONE#
+				/loginfailed.htm=#NONE#
+				/web-inf/jsp/seguridad/simple_loginform.jsp=#NONE#
+				/web-inf/jsp/seguridad/advanced_loginform.jsp=#NONE#
+				/web-inf/jsp/seguridad/accessdenied.jsp=#NONE#
+				/web-inf/jsp/seguridad/exceptionpage.jsp=#NONE#
+				/web-inf/jsp/seguridad/sessionclosed.jsp=#NONE#
+				/web-inf/jsp/seguridad/onlytoken_loginform.jsp=#NONE#
+				/web-inf/jsp/seguridad/loginfailed.jsp=#NONE#
+				/web-inf/jsp/seguridad/include.jsp=#NONE#
+      			/**=concurrentSessionFilter,httpSessionContextIntegrationFilter,logoutFilter,gfiPreauthenticationFilter,authenticationProcessingFilter,securityContextHolderAwareRequestFilter,anonymousProcessingFilter,exceptionTranslationFilter,filterSecurityInterceptor,GFIOperationConfirmationFilter
+      			
+            ]]></value>
+        </property>
+	</bean>
+<!-- 	concurrentSessionFilter,httpSessionContextIntegrationFilter,logoutFilter,gfiPreauthenticationFilter,authenticationProcessingFilter,securityContextHolderAwareRequestFilter,anonymousProcessingFilter,exceptionTranslationFilter,filterSecurityInterceptor,GFIOperationConfirmationFilter -->
+	
+	<!-- FILTRO DE CONFIRMACION DE OPERACION -->
+	
+	<bean id="StaticCodeParameterIdProvider" class="com.gfi.security.ui.webapp.impl.StaticCodeParameterIdProvider"/>
+	<bean id="DinamicTablesRandomParameterIdProvider" class="com.gfi.security.ui.webapp.impl.DinamicTablesRandomParameterIdProvider"/>
+	<bean id="TokenParameterIdProvider" class="com.gfi.security.ui.webapp.impl.TokenParameterIdProvider"/>
+	<bean id="OperationalPasswordIdProvider" class="com.gfi.security.ui.webapp.impl.OperationalPasswordIdProvider"/>
+	<bean id="TokenOrPasswordIdProvider" class="com.gfi.security.ui.webapp.impl.TokenOrPasswordIdProvider">
+		<property name="webService" ref="existeTokenWS"/>
+	</bean>
+	
+	
+	<bean id="StaticCodeExtraParameterProvider" class="com.gfi.security.providers.dao.StaticCodeExtraParameterProvider"/>
+	<bean id="OperationalPasswordParameterProvider" class="com.gfi.security.providers.dao.OperationalPasswordParameterProvider">
+		<property name="passwordEncoder" ref="passwordEncoder" />
+		<property name="userDAO" ref="userDAOSecurity" />
+	</bean>
+	<bean id="OptionalTokenParameterProvider" class="com.gfi.security.providers.dao.OptionalTokenExtraParameterProvider">
+		<property name="serverURL" ref="TokenWSServer"/>
+		<property name="method" value="validaToken"/>
+		<property name="response" ref="WS_BooleanResponse"/>
+		<property name="existeTokenWS" ref="existeTokenWS"/>
+	</bean>
+	
+	<util:map id="parameterProviders" map-class="java.util.HashMap">
+		<entry key="1" value-ref="StaticCodeExtraParameterProvider"/>
+		<entry key="2" value-ref="dinamicTablesExtraParameterProvider"/>
+		<entry key="3" value-ref="tokenExtraParameterProvider"/>
+		<entry key="4" value-ref="OperationalPasswordParameterProvider"/>
+		<!-- LA 5 no la definimos porq corresponde a una combinacion del 3 y 4 -->
+		<entry key="6" value-ref="OptionalTokenParameterProvider"/>
+	</util:map>
+	
+	<bean id="GFIOperationConfirmationFilter" class="com.gfi.security.intercept.web.GFIOperationConfirmationFilter">
+		<!-- <constructor-arg ref="dinamicTablesExtraParameterProvider"/>  -->
+		<property name="authenticationManager" ref="authenticationManager" />
+		<property name="accessDecisionManager" ref="accessDecisionManager" />
+		<property name="objectDefinitionSource" ref="databaseObjectDefinitionSource" />
+		<property name="authorityDAO" ref="authorityDAO" />
+		<property name="idProviders">
+			 <map>
+				<entry key="1" value-ref="StaticCodeParameterIdProvider"/>
+				<entry key="2" value-ref="DinamicTablesRandomParameterIdProvider"/>
+				<entry key="3" value-ref="TokenParameterIdProvider"/>
+				<entry key="4" value-ref="OperationalPasswordIdProvider"/>
+				<entry key="5" value-ref="TokenOrPasswordIdProvider"/>
+			</map>
+		</property>
+		<property name="validationProviders" ref="parameterProviders" />
+ 	</bean>
+	<!-- FIN -->
+	
+	<!--CONCURRENCIA DE LAS SESSIONES -->
+	
+	<bean id="synchMaps" class="com.gfi.security.util.SynchronizedMapInitializer"/>
+	
+ 	<bean id="sessionRegistry" class="com.gfi.security.concurrent.SessionRegistryImpl">
+ 		<property name="application" ref="applicationInfo_ARQ_SEC"/>
+ 		<property name="userDao" ref="userDAOSecurity"></property>
+ 		<property name="debug" value="true"/>
+ 		<property name="smi" ref="synchMaps"/>
+ 		<property name="wsCliente" ref="iLineSessionWS"/>
+ 	</bean>
+ 	
+	<bean id="concurrentSessionFilter" class="org.springframework.security.concurrent.ConcurrentSessionFilter">
+		<property name="sessionRegistry"><ref bean="sessionRegistry"/></property>
+		<property name="logoutHandlers">
+    		<list>
+    			<ref local="logoutHandler"/>
+    		</list>
+    	</property>
+		<property name="expiredUrl" value="/AccessDenied.htm"/>
+	</bean>
+
+	<!-- <bean id="concurrentSessionController"  class="org.springframework.security.concurrent.ConcurrentSessionControllerImpl">
+	 -->
+	 
+	<bean id="concurrentSessionController"  class="com.gfi.security.concurrent.GFIConcurrentSesssionController">
+		<property name="maximumSessions"> 
+			<value>1000</value>                
+		</property> 
+		<property name="exceptionIfMaximumExceeded" value="true"/>               
+		<property name="sessionRegistry" ref="sessionRegistry" />        
+	</bean>
+	<!--FIN: CONCURRENCIA DE LAS SESSIONES -->
+	
+	<bean id="httpSessionContextIntegrationFilter" class="org.springframework.security.context.HttpSessionContextIntegrationFilter" />
+	
+	<!-- LOGOUT -->
+	<bean id="logoutHandler" class="org.springframework.security.ui.logout.SecurityContextLogoutHandler"/>
+	
+	<bean id="CustomLogoutHandler" class="com.gfi.security.ui.logout.CustomLogoutHandler">
+		<property name="logger" ref="GFISecurityLogger"/>
+	</bean>
+	
+	<!-- <bean id="updateLogoutDateHandler" class="com.synergon.syrius.security.UpdateLogoutDateHandler" autowire="autodetect"/> -->
+	<!-- 
+		Sin iLine conviene este
+	org.springframework.security.ui.logout.LogoutFilter
+	
+	Este es para q regrese a iLine despues de salir
+	com.gfi.security.ui.logout.LogoutFilter
+	 -->
+	 <bean id="logoutFilter" class="org.springframework.security.ui.logout.LogoutFilter">
+		<constructor-arg value="/SessionClosed.htm" />							  <!-- URL que se muestra despues de cerrar la session -->
+		<constructor-arg>
+			<list>
+				<ref local="CustomLogoutHandler"/>
+				<ref local="logoutHandler"/>
+			<!-- <ref local="updateLogoutDateHandler"/>  -->
+			</list>
+		</constructor-arg>
+		<property name="filterProcessesUrl" value="/gfi_global_logout.htm" />  <!-- URL con la q se cierra la session -->
+	</bean>
+	<!--FIN: LOGOUT -->
+	
+	<!-- Configurando Proceso de autenticacion -->
+	
+	<bean id="authenticationProcessingFilter" class="com.gfi.security.ui.webapp.AdvancedAuthenticationProcessingFilter">
+		<property name="logger" ref = "GFISecurityLogger"/>
+		<property name="defaultTargetUrl" value="/home.htm" /> 		<!-- Pagina inicial -->
+		<property name="authenticationFailureUrl" value="/LoginFailed.htm" />	<!-- Pagina de error de autenticacion -->
+		<property name="filterProcessesUrl" value="/j_spring_security_check" />	<!-- URL con la que se invoca la autenticacion -->
+		<property name="usernameParameter" value="j_username" />				
+		<property name="passwordParameter" value="j_password" />
+		<property name="authenticationManager" ref="authenticationManager" />	<!-- Objeto que realiza la autenticacion -->
+		<property name="authenticationDetailsSource">
+			<bean class="com.gfi.security.ui.GFIWebAuthenticationDetailsSource"/>
+		</property>
+		<property name="paramProvider" ref="parameterProviders" />
+	</bean>
+	
+	<bean id="securityContextHolderAwareRequestFilter" class="org.springframework.security.wrapper.SecurityContextHolderAwareRequestFilter" />
+
+	<bean id="anonymousProcessingFilter" class="org.springframework.security.providers.anonymous.AnonymousProcessingFilter">
+		<property name="key" value="doesNotMatter" />
+		<property name="userAttribute" value="roleAnonymous,ROLE_ANONYMOUS" />
+	</bean>
+
+	<!-- GENERA EL ID de la tabla dinamica que se busca -->
+	<bean id="dinamicTablesRandomIdProvider" class="com.gfi.security.ui.webapp.impl.DinamicTablesRandomParameterIdProvider"/>
+
+	<bean id="exceptionTranslationFilter" class="org.springframework.security.ui.ExceptionTranslationFilter">
+		<property name="authenticationEntryPoint">
+			<bean class="com.gfi.security.ui.webapp.AdvancedAuthenticationProcessingFilterEntryPoint">
+				<property name="loginFormUrl" value="/Simple_LoginForm.htm" />
+				<property name="simpleLoginFormUrl" value="/Simple_LoginForm.htm" />
+				<property name="cardLoginFormUrl" value="/Advanced_LoginForm.htm" />
+				<property name="accessDeniedUrl" value="/AccessDenied.htm" />
+				<property name="parameterIdProvider" ref="dinamicTablesRandomIdProvider"/>
+				<property name="applicationInfo" ref="applicationInfo_ARQ_SEC"/>
+				<property name="ILineDAO" ref="iLineIntegrationDAO"/>
+				<property name="webService" ref="existeTokenWS"/>				
+			</bean>
+		</property>
+		<property name="accessDeniedHandler">
+			<bean class="org.springframework.security.ui.AccessDeniedHandlerImpl">
+				<property name="errorPage" value="/AccessDenied.htm" />
+			</bean>
+		</property>
+		<property name="createSessionAllowed" value="true"/>
+	</bean> 
+
+	<!-- Sacando URLS de la base de datos >
+	<bean id="filterSecurityInterceptor" class="org.springframework.security.intercept.web.FilterSecurityInterceptor"-->
+	<bean id="filterSecurityInterceptor" class="com.gfi.security.intercept.web.NoFilterSecurityInterceptor">
+		<property name="authenticationManager" ref="authenticationManager" />
+		<property name="accessDecisionManager" ref="accessDecisionManager" />
+		<property name="objectDefinitionSource" ref="databaseObjectDefinitionSource" />
+		<property name="logger" ref="GFISecurityLogger"/>
+		<property name="debug" value="true"/>
+		<property name="wsCliente" ref="iLineSessionWS"/>
+		<property name="ILineSincronized" value="false"/>
+	</bean>
+	<!-- 
+Actual
+	<bean id="filterSecurityInterceptor" class="com.gfi.security.intercept.web.SimpleFilterSecurityInterceptor">
+		<property name="authenticationManager" ref="authenticationManager" />
+		<property name="accessDecisionManager" ref="accessDecisionManager" />
+		<property name="objectDefinitionSource" ref="databaseObjectDefinitionSource" />
+		<property name="logger" ref="GFISecurityLogger"/>
+		<property name="debug" value="true"/>
+	</bean>
+Basado en prefijos
+	<bean id="filterSecurityInterceptor" class="com.gfi.security.intercept.web.PrefixFilterSecurityInterceptor">
+		<property name="authenticationManager" ref="authenticationManager" />
+		<property name="accessDecisionManager" ref="accessDecisionManager" />
+		<property name="objectDefinitionSource" ref="databaseObjectDefinitionSource" />
+		<property name="logger" ref="GFISecurityLogger"/>
+		<property name="prefixNoFilter" value="NF_"/>
+		<property name="prefixMediumFilter" value="MF_"/>
+	</bean>
+Basado en listas
+	<bean id="filterSecurityInterceptor" class="com.gfi.security.intercept.web.ListFilterSecurityInterceptor">
+		<property name="authenticationManager" ref="authenticationManager" />
+		<property name="accessDecisionManager" ref="accessDecisionManager" />
+		<property name="objectDefinitionSource" ref="databaseObjectDefinitionSource" />
+		<property name="logger" ref="GFISecurityLogger"/>
+		<property name="debug" value="true"/>
+	</bean>
+	 -->
+	<bean id="databaseObjectDefinitionSource" class="org.springframework.security.intercept.web.DefaultFilterInvocationDefinitionSource" scope="prototype">		
+		<constructor-arg>
+			<bean class="org.springframework.security.util.AntUrlPathMatcher" /> 
+		</constructor-arg> 
+		<constructor-arg ref="requestMap" />
+	</bean>
+	
+	<bean id="requestMap" class="com.gfi.security.util.RequestMapFactoryBean" init-method="init">
+		<property name="userManagerService" ref="customUserManagerService"/>
+	</bean>
+	
+	<!-- Actualizar info de usuarios en timepo real -->
+	<bean id="updateVoter" class="com.gfi.security.service.UpdateRealTimeVoter">
+		<property name="revokedUsers" ref="revokedUsers"/> 
+		<property name="updatableUsers" ref="updatableUsers"/>
+		<property name="authenticationManager" ref="authenticationManager"/>
+	</bean>
+	<!-- Fin: actualizar infor de usuario en timepo real -->
+	
+	<bean id="accessDecisionManager" class="org.springframework.security.vote.UnanimousBased">
+		<property name="allowIfAllAbstainDecisions" value="false" />
+		<property name="decisionVoters">
+			<list>
+				<ref bean="updateVoter" />
+				<bean class="org.springframework.security.vote.RoleVoter" >
+					<property name="rolePrefix" value="" />	
+				</bean>
+				<bean class="org.springframework.security.vote.AuthenticatedVoter"/>
+			</list>
+		</property>
+	</bean>
+	<!-- Fin:Sacando URLS de la base de datos -->
+	 
+	<!-- Autenticacion usando clases propietarias -->
+	<bean id="messageSource" class="org.springframework.context.support.ResourceBundleMessageSource">
+		<property name="basenames">
+			<list>
+				<value>com.gfi.security.messages</value>
+				<value>messages</value>
+			</list>
+		</property> 
+	</bean>
+	<bean id="authenticationManager" class="org.springframework.security.providers.ProviderManager" init-method="afterPropertiesSet">
+		<property name="providers">
+			<list>
+				<ref bean="daoAuthenticationProvider" />
+				<ref bean="anonymousAuthenticationProvider" />			
+			</list>
+		</property>
+		<property name="sessionController">
+			<ref bean="concurrentSessionController" />
+		</property>
+	</bean>
+<!-- ENCRIPTACION MD5, usada para la contraseña -->	
+	<bean id="passwordEncoder" class="com.gfi.security.util.impl.MD5PasswordEncoder"/>
+<!-- ENCRIPTACION AES utilizada para los paramtros extra (tarjeta dinamica) -->
+	<bean id="extraParameterEncoder" class="com.gfi.security.util.impl.AESPasswordEncoder"/>
+	
+	<bean id="dinamicTablesExtraParameterProvider" class="com.gfi.security.providers.dao.DinamicTablesExtraParameterProvider">
+		<property name="encoder" ref="extraParameterEncoder"/>
+	</bean>
+	
+	<bean id="tokenExtraParameterProvider" class="com.gfi.security.providers.dao.TokenExtraParameterProvider">
+		<property name="serverURL" ref="TokenWSServer"/>
+		<property name="method" value="validaToken"/>
+		<property name="response">
+			<value>
+				<![CDATA[<!DOCTYPE mapping PUBLIC "-//EXOLAB/Castor Mapping DTD Version 1.0//EN"
+					"http://castor.org/mapping.dtd"> 
+					<mapping> 
+						<class name="com.gfi.security.webservice.client.token.TokenValidationResponse"> 
+						 	<map-to xml="validaTokenResponse" ns-uri="http://ejb.acl.seguridad/xsd" ns-prefix="ns"/> 
+							<field name="valid" type="java.lang.Boolean"> 
+								<bind-xml name="return" node="element"/> 
+							</field> 
+						</class> 
+					</mapping>]]>
+			</value>
+		</property>
+	</bean>
+	
+	<bean id="daoAuthenticationProvider" class="com.gfi.security.providers.dao.AdvancedDaoAuthenticationProvider">
+		<property name="userDetailsService" ref="customUserManagerService" />
+		<property name="hideUserNotFoundExceptions" value="false"/>
+		<property name="passwordEncoder" ref="passwordEncoder"/>
+		<property name="parameterProvider" >
+			<list>
+				<ref bean="dinamicTablesExtraParameterProvider"/>
+				<ref bean="tokenExtraParameterProvider"/>
+				<ref bean="OperationalPasswordParameterProvider"/>
+			</list>
+		</property>
+		<property name="applicationInfo" ref="applicationInfo_ARQ_SEC"/>
+	</bean>	
+ 	
+ 	<bean id="anonymousAuthenticationProvider" class="org.springframework.security.providers.anonymous.AnonymousAuthenticationProvider">
+		<property name="key" value="doesNotMatter" />
+	</bean>
+	
+	<bean id="customUserManagerService" class="com.gfi.security.service.UserManagerService">
+		<property name="userDAO" ref="userDAOSecurity"/>
+		<property name="authorityDAO" ref="authorityDAO"/>
+		<property name="messageSource" ref="messageSource"/>
+	</bean>
+	<!--FIN: Autenticacion usando clases propietarias -->
+
+<!-- PROTECCION DE METODOS obtenida desde la BD -->
+<!-- 
+	<sec:global-method-security></sec:global-method-security>
+
+	<sec:global-method-security secured-annotations="enabled">
+		<sec:protect-pointcut expression="execution(* com.interacciones.test.security.service.UserService.*(..))" access="ROLE_ADMINISTRADOR,ROLE_USUARIO"/>
+	</sec:global-method-security>
+-->
+ 
+	<bean id="methodSecurityAdvisor" class="org.springframework.security.intercept.method.aopalliance.MethodDefinitionSourceAdvisor">
+    	<constructor-arg>
+    		<ref bean="methodSecurityInterceptor" />
+    	</constructor-arg>
+    </bean>
+ 
+	<bean id="methodSecurityInterceptor" class="org.springframework.security.intercept.method.aopalliance.MethodSecurityInterceptor">
+  		<property name="validateConfigAttributes" value="false"/> 
+        <property name="authenticationManager" ref="authenticationManager" /> 
+        <property name="accessDecisionManager" ref="accessDecisionManager" /> 
+        <property name="runAsManager" ref="runAsManager" /> 
+		<property name="objectDefinitionSource" ref="customObjectDefinitionSource"/>
+		<!--<property name="objectDefinitionSource">
+	 		<value><![CDATA[
+	 			com.interacciones.test.security.service.UserService.*=ROLE_ADMINISTRADOR,ROLE_USUARIO
+	    	]]></value>
+	    
+  		</property>-->  	
+	</bean>
+	 
+	<bean id="customObjectDefinitionSource" class="com.gfi.security.util.CustomMethodDefinitionSource" init-method="init">
+		<property name="userManagerService" ref="customUserManagerService"/>
+	</bean>
+	
+  	<bean id="runAsManager" class="org.springframework.security.runas.RunAsManagerImpl"> 
+        <property name="key" value="run_as_password" /> 
+    </bean> 
+
+	<bean id="autoproxy" class="org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreator"/>
+  	
+<!--fin PREOTECCION DE METODOS -->
+
+<!-- PRE-AUTHENTICATION -->
+
+	<bean id="gfiPreauthenticationFilter" class="com.gfi.security.ui.preauth.GFIPreAuthenticatedProcessingFilter">
+	    <property name="authenticationManager" ref="authenticationManager" />
+	    <property name="debugEnabled" value="false" />
+	    <property name="continueFilterChainOnUnsuccessfulAuthentication" value="false" />
+	    <property name="authenticationDetailsSource">
+			<bean class="com.gfi.security.ui.GFIWebAuthenticationDetailsSource"/>
+		</property>
+  	</bean>
+
+<!-- fin PRE-AUTHENTICATION -->
+
+<!-- PARA TENER VARIOS messageSources 
+
+	<bean id="messageSource" class="org.springframework.context.support.ResourceBundleMessageSource">
+		<property name="basenames">
+			<list>
+				<value>com.gfi.security.messages</value>
+				<value>messages</value>
+			</list>
+		</property> 
+	</bean>
+ -->
+ 
+ <!-- MENU MENU MENU MENU PARA LA GENERACIN DEL MENU!  MENU MENU MENU MENU -->
+<!-- 	<jaxws:client id="invoke" -->
+<!--                   serviceClass="cxf.servicemenu.ServiceMenu" -->
+<!--                   address="http://172.20.240.23:9090/WebServiceMenu/ServiceMenu" /> -->
+    <jaxws:client id="invoke"
+                  serviceClass="cxf.servicemenu.ServiceMenu"
+                  address="http://172.20.240.23:9090/WebServiceMenu/ServiceMenu" />
+    <bean id="serviceMenu" class="cxf.servicemenu.invoke.ServiceMenuInvoke">
+    	<property name="applicationInfo" ref="applicationInfo_ARQ_SEC"/>
+    	<property name="serviceMenu" ref="invoke"/>
+	</bean>
+ <!-- MENU MENU MENU MENU FIN PARA LA GENERACIN DEL MENU! MENU MENU MENU MENU-->
+
+</beans>

@@ -1,0 +1,40 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta content="text/html; charset=UTF-8" http-equiv="Content-Type"/>
+	<style>
+		body {color:black;}
+		h1 {color:#00ff00;}
+		p.ex {color:rgb(0,0,255);}
+		p{Arial, Helvetica, sans-serif}
+	</style>
+<title>Plantilla de resumen - Carga automatica</title>
+</head>
+<body>
+	<div id="header">
+		<img src="cid:logoGFI" />
+	</div>
+	<div id="content">
+		<p class="nameClass"></p>
+		<p>
+		Por medio del presente se le(s) notifica que hay algún error en las precondiciones para ejecutar la carga automática. El error puede ocurrir por alguno de los siguientes casos:
+		<br/><br/><br/>
+		1. Revisar si se puede leer el archivo (Plantilla de resumen) requerido para iniciar la carga automática, 
+		se está buscando en la ruta: ${rutaArchivo}<br/>
+		con el siguiente nombre: ${nombreArchivo}<br/><br/>
+		2. Revisar si no existen archivos diferentes a Zip en la ruta donde se buscan los archivos empaquetados: ${rutaComprimidos}
+		<br/><br/>
+		3. Revisar que existan archivos Zip en la ruta: ${rutaComprimidos}, y que el servidor tenga permisos de lectura y escritura sobre esa ruta
+		
+		<br/><br/><br/>
+		<br/><br/>
+		
+		</p>
+		<p>Buen Día.</p>
+		<p>GFI.</p>
+	</div>
+	<div id="footer">
+		<p>Email enviado el ${sysDate}.</p>
+	</div>
+</body>
+</html>

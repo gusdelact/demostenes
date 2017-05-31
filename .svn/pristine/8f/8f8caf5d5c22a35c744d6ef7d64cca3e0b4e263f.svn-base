@@ -1,0 +1,33 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta content="text/html; charset=UTF-8" http-equiv="Content-Type"/>
+	<style>
+		body {color:black;}
+		h1 {color:#00ff00;}
+		p.ex {color:rgb(0,0,255);}
+		p{Arial, Helvetica, sans-serif}
+	</style>
+<title>Notificacion de carga automatica</title>
+</head>
+<body>
+	<div id="header">
+		<img src="cid:logoGFI" />
+	</div>
+	<div id="content">
+		<p class="nameClass"></p>
+		<p>
+		Por medio del presente se le(s) notifica que se ha realizado la carga automatica de arhivos XML, se adjunta el resumen en el correo.
+		<br/><br/><br/>
+		<br/><br/>
+		
+		
+		</p>
+		<p>Buen Día.</p>
+		<p>GFI.</p>
+	</div>
+	<div id="footer">
+		<p>Email enviado el ${sysDate}.</p>
+	</div>
+</body>
+</html>

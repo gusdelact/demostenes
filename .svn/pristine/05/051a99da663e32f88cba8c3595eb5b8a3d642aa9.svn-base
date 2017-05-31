@@ -1,0 +1,240 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="BitacoraExcepciones" pageWidth="612" pageHeight="792" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="9ade5677-a541-4bf4-a348-d29b6cbae059">
+	<property name="ireport.zoom" value="1.5"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="paramUsuarioSesion" class="java.lang.String">
+		<defaultValueExpression><![CDATA["FMUNIVE"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="paramLogoPath" class="java.lang.String"/>
+	<field name="idContrato" class="java.lang.Long"/>
+	<field name="fExcepcion" class="java.util.Date"/>
+	<field name="hExcepcion" class="java.lang.Integer"/>
+	<field name="cveTipoExcepcion" class="java.lang.String"/>
+	<field name="DescExcepcion" class="java.lang.String"/>
+	<field name="cveUsuario" class="java.lang.String"/>
+	<field name="motivo" class="java.lang.String"/>
+	<field name="sitExcepcion" class="java.lang.String"/>
+	<field name="titular" class="java.lang.String"/>
+	<field name="descUsuario" class="java.lang.String"/>
+	<field name="situacion" class="java.lang.String"/>
+	<group name="Desc Excepcion Group">
+		<groupExpression><![CDATA[$F{DescExcepcion}]]></groupExpression>
+		<groupHeader>
+			<band height="13">
+				<rectangle>
+					<reportElement x="0" y="0" width="572" height="12" backcolor="#FFFFFF" uuid="63f06772-5021-4187-9121-3755a45ce8f6"/>
+					<graphicElement>
+						<pen lineColor="#000000"/>
+					</graphicElement>
+				</rectangle>
+				<textField>
+					<reportElement x="0" y="0" width="572" height="12" backcolor="#CCCCCC" uuid="5c78b611-5df6-47a0-b774-edb0107c8f25"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="8" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{DescExcepcion}]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupHeader>
+		<groupFooter>
+			<band/>
+		</groupFooter>
+	</group>
+	<group name="idContrato">
+		<groupExpression><![CDATA[$F{idContrato}]]></groupExpression>
+		<groupHeader>
+			<band height="25">
+				<textField>
+					<reportElement x="68" y="7" width="99" height="11" uuid="cd4840a4-9ed3-471b-a5d4-86b505f4c551"/>
+					<textElement>
+						<font size="8"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{idContrato}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="3" y="2" width="65" height="20" uuid="76eff76e-5c3f-4e13-b985-34c650ae99f7"/>
+					<textElement>
+						<font size="12" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Contrato]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="200" y="2" width="65" height="20" uuid="ad20506f-3357-45c1-86db-2c7944829851"/>
+					<textElement>
+						<font size="12" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Titular]]></text>
+				</staticText>
+				<textField>
+					<reportElement x="265" y="7" width="142" height="11" uuid="b7f8310e-d186-436c-a0b3-566c51f94b84"/>
+					<textElement>
+						<font size="6"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{titular}]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupHeader>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band splitType="Stretch"/>
+	</title>
+	<pageHeader>
+		<band height="52" splitType="Stretch">
+			<rectangle>
+				<reportElement x="0" y="0" width="572" height="51" uuid="c8a218d6-8f8f-4bb4-93e6-4d683019a339"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="0" y="22" width="572" height="14" uuid="0b6e8c2b-d8ba-404f-b5ff-aeea0193ffce"/>
+				<textElement textAlignment="Center">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Administración de Cuentas]]></text>
+			</staticText>
+			<textField pattern="dd/MM/yyyy h.mm a">
+				<reportElement x="487" y="7" width="26" height="10" uuid="4a57e0b6-bbf6-472d-8b18-93963503148a"/>
+				<textElement>
+					<font size="5"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Fecha   : "]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy hh:mm:ss a">
+				<reportElement x="513" y="7" width="56" height="10" uuid="b0dd8145-5c9d-4874-9d06-7ba0820eb924"/>
+				<textElement>
+					<font size="5"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="5" width="572" height="16" uuid="729a76ef-462a-46db-8213-6a7d913cf3d5"/>
+				<textElement textAlignment="Center">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[GRUPO FINANCIERO INTERACCIONES]]></text>
+			</staticText>
+			<textField pattern="dd/MM/yyyy h.mm a">
+				<reportElement x="487" y="17" width="26" height="9" uuid="0aa2f255-63bd-4ef1-8d2c-4a5f05de63a7"/>
+				<textElement>
+					<font size="5"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Usuario :  "]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="36" width="572" height="15" uuid="84294f87-cae0-402c-90e3-55736e4e1894"/>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[Bitácora de Excepciones]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="513" y="17" width="41" height="9" uuid="9a8203f3-cd05-4d66-8731-d6d791ea1586"/>
+				<textElement>
+					<font size="5"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{paramUsuarioSesion}]]></textFieldExpression>
+			</textField>
+			<image>
+				<reportElement x="3" y="3" width="122" height="23" uuid="5818ea98-02a2-44b3-b091-d4770899bc78"/>
+				<imageExpression><![CDATA[$P{paramLogoPath}]]></imageExpression>
+			</image>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="21" splitType="Stretch">
+			<rectangle>
+				<reportElement x="0" y="0" width="572" height="20" backcolor="#CCCCCC" uuid="a0de6bd1-54b9-4622-aff6-2e1e22aa6124"/>
+				<graphicElement>
+					<pen lineColor="#CCCCCC"/>
+				</graphicElement>
+			</rectangle>
+			<staticText>
+				<reportElement x="3" y="0" width="44" height="20" uuid="ab596302-7984-4218-9f7a-dc409b741d11"/>
+				<textElement verticalAlignment="Middle">
+					<font size="6" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Fecha]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="68" y="0" width="68" height="20" uuid="14e2214d-e4d3-4655-8e4a-56d726454472"/>
+				<textElement verticalAlignment="Middle">
+					<font size="6" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Estatus]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="149" y="1" width="150" height="20" uuid="681132d7-fb0b-4f76-801a-ced0d497586a"/>
+				<textElement verticalAlignment="Middle">
+					<font size="6" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Usuario]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="299" y="0" width="143" height="20" uuid="61182b45-891c-4435-8e4e-a10c60680009"/>
+				<textElement verticalAlignment="Middle">
+					<font size="6" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Observaciones]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="12" splitType="Stretch">
+			<textField isStretchWithOverflow="true">
+				<reportElement x="299" y="1" width="255" height="11" uuid="341e0c7b-8ddb-420a-a3a4-427d2ebf33c5"/>
+				<textElement>
+					<font size="5"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{motivo}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy">
+				<reportElement x="3" y="1" width="44" height="11" uuid="7a85314f-ded6-4423-88e9-5d6d663c24f5"/>
+				<textElement>
+					<font size="6"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{fExcepcion}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="149" y="0" width="150" height="11" uuid="0248437c-1c0e-4f2c-9381-2d068933da50"/>
+				<textElement>
+					<font size="6"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{descUsuario}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="68" y="1" width="68" height="11" uuid="018c395e-7b00-44dd-8883-01a48bb16d1d"/>
+				<textElement>
+					<font size="6"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{situacion}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="15" splitType="Stretch">
+			<textField evaluationTime="Report">
+				<reportElement x="560" y="5" width="12" height="9" uuid="86b0fb5e-af98-4005-abcc-7195992844af"/>
+				<textElement>
+					<font size="5"/>
+				</textElement>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="480" y="5" width="80" height="9" uuid="1444766b-ba1b-4b88-82ad-07251b6a3f29"/>
+				<textElement textAlignment="Right">
+					<font size="5"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Página:  "+$V{PAGE_NUMBER}+"  de "]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="513" y="1" width="59" height="1" uuid="6df4ff30-49c9-4805-b804-d7faeb4be273"/>
+			</line>
+		</band>
+	</pageFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>

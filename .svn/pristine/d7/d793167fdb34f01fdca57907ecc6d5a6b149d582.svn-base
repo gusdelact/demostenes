@@ -1,0 +1,54 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<meta content="text/html; charset=UTF-8" http-equiv="Content-Type"/>
+	<title>Registro de Dictamen Jurídico</title>
+</head>
+<body>
+	<div id="header">
+	</div>
+	<div id="content">
+		Se envía el informe de Solicitudes de Dictamen Jurídico, se adjuntan además los documentos de la Autoridad.
+		<br/><br/>
+		<b>Datos del Oficio:</b> 
+		<br/>
+		Número de Oficio : ${numOficio} 
+		<br/>
+		Tipo de Oficio   : ${tipoOficio}
+		<br/>
+		#if(${diasPzo} <= 3)
+		   <strong style="color:red;">Dias de Plazo    : ${diasPzo}</strong>
+		#else
+		   Dias de Plazo    : ${diasPzo}
+		#end
+		<br/><br/>
+		
+		<P>Relación de Personas con resultado de búsqueda Positivo:</P>
+		<table style="font-family:'Trebuchet MS', Arial, Helvetica, sans-serif;border-collapse:collapse;">
+			<tr>
+				<th style="background-color:#8AB8E6;border:1px solid #D8D8D8;color:#ffffff"> Consecutivo </th>
+				<th style="background-color:#8AB8E6;border:1px solid #D8D8D8;color:#ffffff"> Nombre </th>
+				<th style="background-color:#8AB8E6;border:1px solid #D8D8D8;color:#ffffff"> Id Contrato </th>
+			</tr>
+			
+			#foreach($respuesta in $listResp)
+				<tr>
+					<td style="border:1px solid #D8D8D8;"> $respuesta.numConsec </td>
+					<td style="border:1px solid #D8D8D8;"> $respuesta.nomTitular </th>
+					<td style="border:1px solid #D8D8D8;"> $respuesta.idContrato </th>
+				</tr>
+         	#end
+		</table>
+		
+	</div>
+	<br/><br/>
+	
+	Link de Acceso al Sistema: <a href="${url}">Sistema de Administración de Cuentas Web</a>
+	
+	<br/><br/>
+	<div id="footer">
+		<img src="cid:logoGFI" />
+		<P style="font-size:13px;color:#99A2A6">Sistema de Administración de Cuentas Web</P>
+	</div>
+</body>
+</html>
